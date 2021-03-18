@@ -1,11 +1,16 @@
 import React from 'react';
+// import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+// import { UserContext } from '../../App';
 
 const Header = () => {
+    // // consume UserContext data
+    // const [loggedInUser] = useContext(UserContext);
+
     return (
         <div className='header'>
             <div className="logoHolder">
-                <img src="../../../images/metroLogo.png" alt="Metro Spire"/>
+                <img src="../../../images/metroLogo.png" alt="Metro Spire" />
             </div>
             <div className="navigation">
                 <Link to='/'>Home</Link>
