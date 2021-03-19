@@ -11,7 +11,6 @@ import { useContext } from 'react';
 // import custom context
 import { UserContext } from '../../App';
 import { useHistory, useLocation } from 'react-router';
-import { Link } from 'react-router-dom';
 
 const Login = () => {
     // initialization of firebase app
@@ -158,7 +157,7 @@ const Login = () => {
 
 
     return (
-        <div>
+        <div className='Login'>
 
             {
                 !loggedInUser.isSignedIn ? <button onClick={handleGoogleSignIn}>Google Sign in</button> : <button onClick={handleSignOut}>Sign Out</button>
