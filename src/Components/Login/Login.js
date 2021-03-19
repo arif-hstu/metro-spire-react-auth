@@ -11,6 +11,7 @@ import { useContext } from 'react';
 // import custom context
 import { UserContext } from '../../App';
 import { useHistory, useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     // initialization of firebase app
@@ -20,6 +21,7 @@ const Login = () => {
 
     // consume userContext data
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    console.log(loggedInUser)
 
     // get data to redirect from login page
     let history = useHistory();
@@ -90,12 +92,12 @@ const Login = () => {
     }
 
     // handle submit form
-    const handleSubmit = (e) => {
+    const handleRegisterSubmit = (e) => {
         if (loggedInUser.email && loggedInUser.password) {
-            console.log('submited worked',loggedInUser)
+            console.log('submited worked', loggedInUser)
             firebase.auth().createUserWithEmailAndPassword(loggedInUser.email, loggedInUser.password)
                 .then((userCredential) => {
-                    const newUserInfo = {...loggedInUser};
+                    const newUserInfo = { ...loggedInUser };
                     newUserInfo.error = '';
                     newUserInfo.successful = 'User Created Successfully';
                     setLoggedInUser(newUserInfo);
@@ -105,12 +107,32 @@ const Login = () => {
                     // var errorCode = error.code;
                     var errorMessage = err.message;
                     console.log(errorMessage)
-                    const newUserInfo = {...loggedInUser};
+                    const newUserInfo = { ...loggedInUser };
                     newUserInfo.error = errorMessage;
                     setLoggedInUser(newUserInfo);
                 });
         }
         e.preventDefault();
+    }
+
+
+    const handleLogin = () => {
+        const newUserInfo = { ...loggedInUser };
+        newUserInfo.isSignedIn = true;
+        setLoggedInUser(newUserInfo)
+    }
+
+    const handleLoginSubmit = () => {
+        firebase.auth().signInWithEmailAndPassword(loggedInUser.email, loggedInUser.password)
+        .then((userCredential) => {
+            // Signed in
+            var user = userCredential.user;
+            // ...
+        })
+        .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+        });
     }
 
     // handle onBlur input
@@ -135,27 +157,39 @@ const Login = () => {
 
     return (
         <div>
-            <h3>This is login</h3>
+
             {
                 !loggedInUser.isSignedIn ? <button onClick={handleGoogleSignIn}>Google Sign in</button> : <button onClick={handleSignOut}>Sign Out</button>
             }
 
-            <form onSubmit={handleSubmit}>
-                <h2>Authentication</h2>
-                <input type="text" name="displayName" placeholder='Name' onBlur={handleBlur} id="" />
-                <br/>
-                <input type="text" name="email" placeholder='Email' onBlur={handleBlur} id="" />
-                <br />
-                <input type="password" name="password" placeholder='Password' onBlur={handleBlur} id="" />
-                <br />
-                <input type="submit"></input>
-            </form>
             {
-                loggedInUser.error && <p style={{color: 'red'}}>{loggedInUser.error}</p>
+                loggedInUser.isSignedIn ?
+                    <form onSubmit={handleLoginSubmit}>
+                        <h2>Login</h2>
+                        <input type="text" name="email" placeholder='Email' onBlur={handleBlur} id="" />
+                        <br />
+                        <input type="password" name="password" placeholder='Password' onBlur={handleBlur} id="" />
+                        <br />
+                        <input type="submit"></input>
+                    </form> :
+                    <form onSubmit={handleRegisterSubmit}>
+                        <h2>Register </h2>
+                        <input type="text" name="displayName" placeholder='Name' onBlur={handleBlur} id="" />
+                        <br />
+                        <input type="text" name="email" placeholder='Email' onBlur={handleBlur} id="" />
+                        <br />
+                        <input type="password" name="password" placeholder='Password' onBlur={handleBlur} id="" />
+                        <br />
+                        <input type="submit"></input>
+                    </form>
             }
             {
-                loggedInUser.successful && <p style={{color: 'green'}}>{loggedInUser.successful}</p>
+                loggedInUser.error && <p style={{ color: 'red' }}>{loggedInUser.error}</p>
             }
+            {
+                loggedInUser.successful && <p style={{ color: 'green' }}>{loggedInUser.successful}</p>
+            }
+            <p>Already registered? <span onClick={handleLogin}>Login</span></p>
         </div>
     );
 };
