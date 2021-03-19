@@ -12,7 +12,16 @@ import { useContext } from 'react';
 import { UserContext } from '../../App';
 import { useHistory, useLocation } from 'react-router';
 
+// import styleSheet
+import './Login.css'
+
+// import images
+import googleIcon from '../../images/googleIcon.png'
+import facebookIcon from '../../images/fbIcon.png'
+
 const Login = () => {
+
+
     // initialization of firebase app
     if (firebase.apps.length === 0) {
         firebase.initializeApp(firebaseConfig)
@@ -20,6 +29,18 @@ const Login = () => {
 
     // consume userContext data
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+
+    // useEffect(() => {
+    //     // change the App component background
+    //     const newBg = {
+    //         background: 'red',
+    //         backgroundSize: '100vw',
+    //         height: '100vh',
+    //         width: '100vw',
+    //         float: 'left'
+    //     }
+    //     setBg(newBg);
+    // },[])
 
     // get data to redirect from login page
     let history = useHistory();
@@ -121,18 +142,24 @@ const Login = () => {
         setLoggedInUser(newUserInfo)
     }
 
+    const handleSignUp = () => {
+        const newUserInfo = { ...loggedInUser };
+        newUserInfo.isSignedIn = false;
+        setLoggedInUser(newUserInfo)
+    }
+
     const handleLoginSubmit = (e) => {
         firebase.auth().signInWithEmailAndPassword(loggedInUser.email, loggedInUser.password)
-        .then((userCredential) => {
-            // Signed in
-            var user = userCredential.user;
-            history.replace(from);   
-            console.log(user) 
-        })
-        .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-        });
+            .then((userCredential) => {
+                // Signed in
+                var user = userCredential.user;
+                history.replace(from);
+                console.log(user)
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+            });
         e.preventDefault();
     }
 
@@ -158,39 +185,60 @@ const Login = () => {
 
     return (
         <div className='Login'>
+            <div className='emailLogin'>
 
-            {
-                !loggedInUser.isSignedIn ? <button onClick={handleGoogleSignIn}>Google Sign in</button> : <button onClick={handleSignOut}>Sign Out</button>
-            }
+                {
+                    loggedInUser.isSignedIn ?
+                        <form onSubmit={handleLoginSubmit}>
+                            <h4>Login</h4>
+                            <input type="text" name="email" placeholder='Email' onBlur={handleBlur} id="" />
+                            <br />
+                            <input type="password" name="password" placeholder='Password' onBlur={handleBlur} id="" />
+                            <br />
+                            <input className='inputButton' type="submit" value='Login'></input>
 
-            {
-                loggedInUser.isSignedIn ?
-                    <form onSubmit={handleLoginSubmit}>
-                        <h2>Login</h2>
-                        <input type="text" name="email" placeholder='Email' onBlur={handleBlur} id="" />
-                        <br />
-                        <input type="password" name="password" placeholder='Password' onBlur={handleBlur} id="" />
-                        <br />
-                        <input type="submit"></input>
-                    </form> :
-                    <form onSubmit={handleRegisterSubmit}>
-                        <h2>Register </h2>
-                        <input type="text" name="displayName" placeholder='Name' onBlur={handleBlur} id="" />
-                        <br />
-                        <input type="text" name="email" placeholder='Email' onBlur={handleBlur} id="" />
-                        <br />
-                        <input type="password" name="password" placeholder='Password' onBlur={handleBlur} id="" />
-                        <br />
-                        <input type="submit"></input>
-                    </form>
-            }
-            {
-                loggedInUser.error && <p style={{ color: 'red' }}>{loggedInUser.error}</p>
-            }
-            {
-                loggedInUser.successful && <p style={{ color: 'green' }}>{loggedInUser.successful}</p>
-            }
-            <p>Already registered? <span onClick={handleLogin}>Login</span></p>
+                            <div className='signupInfo'>
+                                <p>Don't have an account?</p>
+                                <span onClick={handleSignUp}>Create an account</span>
+                            </div>
+
+                        </form> :
+                        <form onSubmit={handleRegisterSubmit}>
+                            <h4>Create an account </h4>
+                            <input type="text" name="displayName" placeholder='Name' onBlur={handleBlur} id="" />
+                            <br />
+                            <input type="text" name="email" placeholder='Username or Email' onBlur={handleBlur} id="" />
+                            <br />
+                            <input type="password" name="password" placeholder='Password' onBlur={handleBlur} id="" />
+                            <br />
+                            <input type="password" name="password" placeholder='Confirm Password' onBlur={handleBlur} id="" />
+                            <br />
+                            <input className='inputButton' type="submit" value='Create an account'></input>
+
+                            <div className='signupInfo'>
+                                <p>Already registered?</p>
+                                <span onClick={handleLogin}>Login</span>
+                            </div>
+                        </form>
+                }
+                {
+                    loggedInUser.error && <p style={{ color: 'red' }}>{loggedInUser.error}</p>
+                }
+                {
+                    loggedInUser.successful && <p style={{ color: 'green' }}>{loggedInUser.successful}</p>
+                }
+            </div>
+            
+            <div className="socialLogin">
+                <div className="icon">
+                    <img src={googleIcon} alt=""/>
+                </div>
+                <div className="button">
+                    <p onClick={handleGoogleSignIn}>Google Sign in</p>
+                </div>
+            </div>
+
+
         </div>
     );
 };

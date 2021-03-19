@@ -6,23 +6,24 @@ import Ticket from '../Ticket/Ticket';
 import './Home.css'
 
 const Home = () => {
-    // consume 
+    // consume UserContext api data
     const [tickets, setTickets] = useContext(UserContext);
+
     // get ticket data from mocki.io fake api
-    useEffect(()=>{
+    useEffect(() => {
         const url = 'https://api.mocki.io/v1/9d296506';
 
         fetch(url)
-        .then(res => res.json())
-        .then(data => setTickets(data))
-    },[setTickets])
+            ?.then(res => res.json())
+            ?.then(data => setTickets(data));
+    }, [])
     return (
         <div className='Home'>
             <div className="tickets">
                 {
-                    tickets.map(ticket => <Ticket ticket={ticket}/>)
+                    tickets.map(ticket => <Ticket ticket={ticket} />)
                 }
-            </div>            
+            </div>
         </div>
     );
 };

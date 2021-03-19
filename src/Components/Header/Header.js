@@ -3,7 +3,8 @@ import './Header.css'
 import React from 'react';
 // import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-// import { UserContext } from '../../App';
+// import logo
+import logo from "../../images/metroLogoDark.png";
 
 
 const Header = () => {
@@ -14,7 +15,7 @@ const Header = () => {
         <div className='Header'>
             <div className="main">
                 <div className="logoHolder">
-                    <img src="../../images/metroLogo.png" alt="Metro Spire" />
+                    <img src={logo} alt="Metro Spire" />
                 </div>
                 <div className="navigation">
                     <Link to='/'>Home</Link>

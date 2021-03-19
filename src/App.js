@@ -2,7 +2,7 @@
 import './App.css';
 
 // import react router components
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom'
 
 // import custom components
@@ -14,6 +14,9 @@ import Blog from './Components/Blog/Blog'
 import Contact from './Components/Contact/Contact'
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 
+// import background image
+import bgImage from './images/homeBg.png'
+
 // import hooks
 import { createContext } from 'react';
 import { useState } from 'react';
@@ -22,7 +25,21 @@ import { useState } from 'react';
 export const UserContext = createContext();
 
 function App() {
+
+  // // useState to hold the background property
+  // const [bg, setBg] = useState({
+  //   background: `url(${bgImage}) no-repeat`,
+  //   backgroundSize: '100vw',
+  //   height: '100vh',
+  //   width: '100vw',
+  //   float: 'left'
+  // });
+
+  const history = useHistory();
+  console.log(history)
+
   // useState hook to set loggedInUser data
+
   const [loggedInUser, setLoggedInUser] = useState([]);
 
   // useState hook to set fetched data from api
@@ -30,7 +47,7 @@ function App() {
 
   return (
     <UserContext.Provider value={[loggedInUser, setLoggedInUser, tickets, setTickets]}>
-      <div className="App">
+      <div >
         <Router>
           <Header />
           <Switch>

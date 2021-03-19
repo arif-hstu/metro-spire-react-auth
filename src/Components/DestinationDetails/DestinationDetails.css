@@ -1,0 +1,22 @@
+.DestinationDetails {
+    background-color: #efefef;
+    padding: 2%;
+}
+
+.DestinationDetails p {
+    font-size: smaller;
+}
+
+.DestinationDetails input {
+    padding: 2%;
+    border-style: none;
+    width: 95%;
+}
+
+.DestinationDetails .button {
+    width: 100%;
+    background-color: #ff6e40;
+    color: white;
+    padding: 4%;
+    margin-top: 10%
+}

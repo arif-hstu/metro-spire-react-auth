@@ -1,0 +1,75 @@
+.Login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.emailLogin, .socialLogin {
+    text-align: center;  
+    padding: 3%;
+    width: 30%;
+}
+
+.emailLogin {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 1%;
+}
+
+.emailLogin form >* {
+    margin-bottom: 2%;
+    border-style: hidden;
+    padding: 5px;
+}
+
+.emailLogin form input, .emailLogin form input {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    width: 90%;
+}
+.emailLogin form .inputButton {
+    width: 90%;
+    background-color: #ff6e40;
+    color: #fff;
+    border: none;
+}
+
+.socialLogin {
+    margin-top: 2%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 0.5px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50px;
+    padding: 2px;
+}
+
+.socialLogin .icon {
+    align-self:center;
+}
+
+.socialLogin .icon img {
+    width: 35%;
+    margin-left: -60%;
+    margin-top: 6%;
+
+}
+
+.socialLogin .button {
+    width: 100%;
+    /* background-color: blanchedalmond; */
+    line-height: 0%;
+}
+.socialLogin .button p {
+    color: black;
+}
+
+.emailLogin form .signupInfo {
+    font-size: 12px;
+    display:block;
+
+}
+
+.emailLogin form .signupInfo span {
+    color: #ff6e40;
+    cursor: pointer;
+}
