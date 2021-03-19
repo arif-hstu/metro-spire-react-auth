@@ -1,0 +1,10 @@
+.Home {
+    text-align: center;
+    margin: 10% 7%;
+}
+
+.Home .tickets {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+}

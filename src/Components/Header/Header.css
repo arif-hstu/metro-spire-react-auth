@@ -1,0 +1,15 @@
+.Header .main {
+    display: flex;
+    justify-content: space-between;
+    margin: 4% 8%;
+}
+
+.Header .main .navigation>* {
+    padding: 5px 10px;
+    margin: 0px 10px;
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
+    font-size: 2vmin;
+}
+

@@ -22,20 +22,14 @@ import { useState } from 'react';
 export const UserContext = createContext();
 
 function App() {
-
-  // useState hook to set loggedInUser
-  const [user, setUser] = useState({
-    isSignedIn: false,
-    name: '',
-    email: '',
-    photo: ''
-  })
-
   // useState hook to set loggedInUser data
   const [loggedInUser, setLoggedInUser] = useState([]);
 
+  // useState hook to set fetched data from api
+  const [tickets, setTickets] = useState([]);
+
   return (
-    <UserContext.Provider value={[loggedInUser, setLoggedInUser, user, setUser]}>
+    <UserContext.Provider value={[loggedInUser, setLoggedInUser, tickets, setTickets]}>
       <Router>
         <Header />
         <Switch>

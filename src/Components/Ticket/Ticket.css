@@ -1,0 +1,28 @@
+.Ticket {
+    margin: 0 1%;
+    width: 70%;
+}
+
+.Ticket .ticketContent {
+    color: #fff;
+    margin-left: 6%;
+    font-size: 2.5vmax;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.Ticket .primaryButton {
+    text-decoration: none;
+    font-size: 2vmin;
+    font-weight: 600;
+    padding: 10px;
+    background:linear-gradient(to right, #fe8d30, #feb21c);
+    border-radius: 30px;
+    color: black;
+}
+
+.Ticket .ticketContent .bottomPart {
+    margin-top: auto;
+    text-align: center;
+}

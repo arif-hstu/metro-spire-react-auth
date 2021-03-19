@@ -21,7 +21,6 @@ const Login = () => {
 
     // consume userContext data
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-    console.log(loggedInUser)
 
     // get data to redirect from login page
     let history = useHistory();
@@ -101,6 +100,7 @@ const Login = () => {
                     newUserInfo.error = '';
                     newUserInfo.successful = 'User Created Successfully';
                     setLoggedInUser(newUserInfo);
+                    history.replace(from);
 
                 })
                 .catch((err) => {
@@ -122,17 +122,19 @@ const Login = () => {
         setLoggedInUser(newUserInfo)
     }
 
-    const handleLoginSubmit = () => {
+    const handleLoginSubmit = (e) => {
         firebase.auth().signInWithEmailAndPassword(loggedInUser.email, loggedInUser.password)
         .then((userCredential) => {
             // Signed in
             var user = userCredential.user;
-            // ...
+            history.replace(from);   
+            console.log(user) 
         })
         .catch((error) => {
             var errorCode = error.code;
             var errorMessage = error.message;
         });
+        e.preventDefault();
     }
 
     // handle onBlur input
