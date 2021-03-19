@@ -1,16 +1,31 @@
 import React from 'react';
-import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
+import HPlatform, {
+    HMap,
+    HMapCircle,
+    HMapMarker,
+    HMapPolygon,
+    HMapPolyLine,
+    HMapRectangle
+} from "react-here-map";
+
 
 const GoogleMap = () => {
-    const points = [
-        { lat: 52.5309825, lng: 13.3845921 },
-        { lat: 52.5311923, lng: 13.3853495 },
-        { lat: 52.5313532, lng: 13.3861756 },
-        { lat: 52.5315142, lng: 13.3872163 },
-        { lat: 52.5316215, lng: 13.3885574 },
-        { lat: 52.5320399, lng: 13.3925807 },
-        { lat: 52.5321472, lng: 13.3935785 }
+    const polyLinePoints = [
+        { lat: 23.777176, lng: 90.399452 },
+        { lat: 25.636574, lng: 88.636322 }
+       
     ];
+
+
+    // const markerCoords = { lat: 48.2, lng: 16.3667 };
+
+    // const markerIcon =
+    //     '<svg width="24" height="24" ' +
+    //     'xmlns="http://www.w3.org/2000/svg">' +
+    //     '<rect stroke="white" fill="#1b468d" x="1" y="1" width="22" ' +
+    //     'height="22" /><text x="12" y="18" font-size="12pt" ' +
+    //     'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
+    //     'fill="white">H</text></svg>';
     return (
         <div>
             <HPlatform
@@ -19,19 +34,35 @@ const GoogleMap = () => {
                 useCIT
                 useHTTPS
                 includeUI
+                interactive // Required for events
                 includePlaces
             >
                 <HMap
                     style={{
-                        height: "40vmin",
-                        width: "90vmin",
-                      }}
-                    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 }, zoom: 10 }}
+                        height: "40vh",
+                        width: "50vw"
+                    }}
+                    useEvents // Required for events
+                    mapEvents={{ pointerdown: e => console.log("Map Pointer Down", e) }} // event handlers
+                    mapOptions={{
+                        center: { lat: 51, lng: 7 },
+                        zoom: 5,
+                        pixelRatio: window.devicePixelRatio || 1
+                    }}
                 >
-                    <HMapPolyLine points={points} />
+                    <HMapPolyLine
+                        points={polyLinePoints}
+                        objectEvents={{
+                            pointerdown: e => console.log("Polyline Pointer Down", e)
+                        }}
+                    />
+                    {/* <HMapMarker
+                        coords={markerCoords}
+                        icon={markerIcon}
+                        objectEvents={{ pointerdown: e => console.log("Marker Pointer Down", e) }}
+                    /> */}
                 </HMap>
-            </HPlatform>,
-
+            </HPlatform>;
         </div>
     );
 };
