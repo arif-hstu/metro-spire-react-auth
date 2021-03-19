@@ -22,11 +22,20 @@ import { useState } from 'react';
 export const UserContext = createContext();
 
 function App() {
-  // useState hook to set tickets data
-const [loggedInUser, setLoggedInUser] = useState([]);
+
+  // useState hook to set loggedInUser
+  const [user, setUser] = useState({
+    isSignedIn: false,
+    name: '',
+    email: '',
+    photo: ''
+  })
+
+  // useState hook to set loggedInUser data
+  const [loggedInUser, setLoggedInUser] = useState([]);
 
   return (
-    <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
+    <UserContext.Provider value={[loggedInUser, setLoggedInUser, user, setUser]}>
       <Router>
         <Header />
         <Switch>

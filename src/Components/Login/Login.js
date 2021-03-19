@@ -39,9 +39,21 @@ const Login = () => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 var token = credential.accessToken;
                 // The signed-in user info.
-                var user = result.user;
+                const user = result.user;
                 setLoggedInUser(user);
-                history.replace(from)
+                history.replace(from);
+
+                // get user data to set user state
+                const { displayName, photoURL, email, password } = result.loggedInUser;
+                const signedInUser = {
+                    isSignedIn: true,
+                    name: displayName,
+                    password: password,
+                    email: email,
+                    photo: photoURL
+                }
+                setLoggedInUser(signedInUser);
+
 
             }).catch((error) => {
                 // Handle Errors here.
@@ -55,11 +67,95 @@ const Login = () => {
             });
     }
 
+    // signout handler
+    const handleSignOut = () => {
+        firebase.auth().signOut()
+            .then((res) => {
+                const signedOutUser = {
+                    isSignedIn: false,
+                    newUser: false,
+                    displayName: '',
+                    photo: '',
+                    email: '',
+                    password: '',
+                    error: '',
+                    successful: ''
+                }
+                setLoggedInUser(signedOutUser)
+                console.log('sign out successful')
+            }).catch((error) => {
+                // An error happened.
+            });
+
+    }
+
+    // handle submit form
+    const handleSubmit = (e) => {
+        if (loggedInUser.email && loggedInUser.password) {
+            console.log('submited worked',loggedInUser)
+            firebase.auth().createUserWithEmailAndPassword(loggedInUser.email, loggedInUser.password)
+                .then((userCredential) => {
+                    const newUserInfo = {...loggedInUser};
+                    newUserInfo.error = '';
+                    newUserInfo.successful = 'User Created Successfully';
+                    setLoggedInUser(newUserInfo);
+
+                })
+                .catch((err) => {
+                    // var errorCode = error.code;
+                    var errorMessage = err.message;
+                    console.log(errorMessage)
+                    const newUserInfo = {...loggedInUser};
+                    newUserInfo.error = errorMessage;
+                    setLoggedInUser(newUserInfo);
+                });
+        }
+        e.preventDefault();
+    }
+
+    // handle onBlur input
+    const handleBlur = (e) => {
+        let isFieldValid = true;
+        if (e.target.name === 'email') {
+            isFieldValid = /\S+@\S+\.\S+/.test(e.target.value);
+        }
+        if (e.target.name === 'password') {
+            const isPasswordValid = e.target.value.length > 6;
+            const passwordHasNumber = /\d{1}/.test(e.target.value);
+            isFieldValid = isPasswordValid && passwordHasNumber;
+        }
+        if (isFieldValid) {
+            const newUserInfo = { ...loggedInUser };
+            newUserInfo[e.target.name] = e.target.value;
+            setLoggedInUser(newUserInfo);
+        }
+
+    }
+
 
     return (
         <div>
             <h3>This is login</h3>
-            <button onClick={handleGoogleSignIn}>Google Sign in</button>
+            {
+                !loggedInUser.isSignedIn ? <button onClick={handleGoogleSignIn}>Google Sign in</button> : <button onClick={handleSignOut}>Sign Out</button>
+            }
+
+            <form onSubmit={handleSubmit}>
+                <h2>Authentication</h2>
+                <input type="text" name="displayName" placeholder='Name' onBlur={handleBlur} id="" />
+                <br/>
+                <input type="text" name="email" placeholder='Email' onBlur={handleBlur} id="" />
+                <br />
+                <input type="password" name="password" placeholder='Password' onBlur={handleBlur} id="" />
+                <br />
+                <input type="submit"></input>
+            </form>
+            {
+                loggedInUser.error && <p style={{color: 'red'}}>{loggedInUser.error}</p>
+            }
+            {
+                loggedInUser.successful && <p style={{color: 'green'}}>{loggedInUser.successful}</p>
+            }
         </div>
     );
 };
