@@ -1,15 +1,16 @@
 // import styleSheet
 import './Header.css'
-import React from 'react';
+import React, { useContext } from 'react';
 // import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 // import logo
 import logo from "../../images/metroLogoDark.png";
+import { UserContext } from '../../App';
 
 
 const Header = () => {
-    // // consume UserContext data
-    // const [loggedInUser] = useContext(UserContext);
+    // consume UserContext data from APp
+    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
     return (
         <div className='Header'>
@@ -22,7 +23,13 @@ const Header = () => {
                     <Link to='/destination'>Destination</Link>
                     <Link to='/blog'>Blog</Link>
                     <Link to='/contact'>Contact</Link>
-                    <Link to='/login'>Login</Link>
+                    {
+                        loggedInUser.email ? 
+                        <Link to='/profile'>
+                            {loggedInUser.displayName || loggedInUser.email}
+                        </Link> :
+                        <Link className='signUp' to='/login'>Sign Up</Link>
+                    }
                 </div>
             </div>
         </div>

@@ -27,7 +27,7 @@ const Login = () => {
         firebase.initializeApp(firebaseConfig)
     }
 
-    // consume userContext data
+    // consume userContext data from App
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
     // useEffect(() => {
@@ -63,6 +63,7 @@ const Login = () => {
                 const user = result.user;
                 setLoggedInUser(user);
                 history.replace(from);
+                console.log(from)
 
                 // get user data to set user state
                 const { displayName, photoURL, email, password } = result.loggedInUser;
@@ -113,7 +114,6 @@ const Login = () => {
     // handle submit form
     const handleRegisterSubmit = (e) => {
         if (loggedInUser.email && loggedInUser.password) {
-            console.log('submited worked', loggedInUser)
             firebase.auth().createUserWithEmailAndPassword(loggedInUser.email, loggedInUser.password)
                 .then((userCredential) => {
                     const newUserInfo = { ...loggedInUser };
@@ -138,6 +138,7 @@ const Login = () => {
 
     const handleLogin = () => {
         const newUserInfo = { ...loggedInUser };
+        console.log(loggedInUser)
         newUserInfo.isSignedIn = true;
         setLoggedInUser(newUserInfo)
     }
@@ -149,6 +150,7 @@ const Login = () => {
     }
 
     const handleLoginSubmit = (e) => {
+        console.log(loggedInUser)
         firebase.auth().signInWithEmailAndPassword(loggedInUser.email, loggedInUser.password)
             .then((userCredential) => {
                 // Signed in
@@ -179,6 +181,9 @@ const Login = () => {
             setLoggedInUser(newUserInfo);
         }
 
+        e.preventDefault();
+        console.log(loggedInUser)
+
     }
 
 
@@ -188,7 +193,7 @@ const Login = () => {
 
                 {
                     loggedInUser.isSignedIn ?
-                        <form onSubmit={handleLoginSubmit}>
+                        <form onSubmit={handleLoginSubmit }>
                             <h4>Login</h4>
                             <input type="text" name="email" placeholder='Email' onBlur={handleBlur} id="" />
                             <br />

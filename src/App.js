@@ -20,6 +20,7 @@ import bgImage from './images/homeBg.png'
 // import hooks
 import { createContext, useEffect } from 'react';
 import { useState } from 'react';
+import Profile from './Components/Profile/Profile';
 
 // useContext hook to provide tickets api data
 export const UserContext = createContext();
@@ -84,7 +85,6 @@ function App() {
     // <SingleTicketContext.Provider value={[singleTicket, setSingleTicket]}>
 
     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
-      <div >
         <Router>
           <Header />
           <Switch>
@@ -103,9 +103,11 @@ function App() {
             <Route path='/Contact'>
               <Contact />
             </Route>
+            <PrivateRoute path='/profile'>
+              <Profile />
+            </PrivateRoute>
           </Switch>
         </Router>
-      </div>
     </UserContext.Provider>
   );
 }

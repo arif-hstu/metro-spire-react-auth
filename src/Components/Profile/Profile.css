@@ -1,0 +1,12 @@
+.Profile {
+    text-align: center;
+    border: 1px solid red;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    height: 20vmin;
+}
+
+.Profile .profile-info {
+    
+}
