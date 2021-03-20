@@ -26,7 +26,7 @@ const Header = () => {
                     {
                         loggedInUser.email ? 
                         <Link to='/profile'>
-                            {loggedInUser.displayName || loggedInUser.email}
+                            {loggedInUser.displayName || 'Anonymous'}
                         </Link> :
                         <Link className='signUp' to='/login'>Sign Up</Link>
                     }

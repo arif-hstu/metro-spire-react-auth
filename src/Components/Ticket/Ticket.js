@@ -27,9 +27,9 @@ const Ticket = (props) => {
             <div className="ticketContent">
                 <div className="topPart">
                     <h4>{ticketName}</h4>
-                    <Link onClick={() => singleTicketHandler()} className='primaryButton' to='/destination'>BUY NOW</Link>
                 </div>
                 <div className="bottomPart">
+                <Link onClick={() => singleTicketHandler()} className='primaryButton' to='/destination'>BUY NOW</Link>
                     <h2>{ticketPrice}</h2>
                 </div>
             </div>

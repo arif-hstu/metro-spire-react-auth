@@ -11,15 +11,15 @@ import { Link } from 'react-router-dom';
 const Profile = () => {
     // consume UserContext from App
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-    
+
     // handle logout from the device
     const handleLogOut = () => {
         firebase.auth().signOut().then(() => {
             console.log('successful')
-          }).catch((error) => {
+        }).catch((error) => {
             console.log(error)
-          });
-        const newUser = {...loggedInUser};
+        });
+        const newUser = { ...loggedInUser };
         newUser.isSignedIn = false;
         newUser.email = '';
         setLoggedInUser(newUser);
@@ -32,6 +32,7 @@ const Profile = () => {
                         <h2>Welcome, {loggedInUser.displayName}!</h2> :
                         <h2>Hi, Anonymous!</h2>
                 }
+                <img src={loggedInUser.photoURL} alt="" srcset=""/>
                 <h3>Your Email is: {loggedInUser.email}</h3>
                 <button onClick={handleLogOut}>Log Out</button>
             </div>

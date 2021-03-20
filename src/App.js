@@ -40,13 +40,13 @@ function App() {
 
 
   // // useState to hold the background property
-  // const [bg, setBg] = useState({
-  //   background: `url(${bgImage}) no-repeat`,
-  //   backgroundSize: '100vw',
-  //   height: '100vh',
-  //   width: '100vw',
-  //   float: 'left'
-  // });
+  const [bg, setBg] = useState({
+    background: `url(${bgImage}) no-repeat`,
+    backgroundSize: '100vw',
+    height: '100vh',
+    width: '100vw',
+    float: 'left'
+  });
 
   // useState hook to set loggedInUser data
 
@@ -64,50 +64,38 @@ function App() {
       .then(data => setTickets(data));
   }, [])
 
-
-  // // useState to get search place data
-  // const [placeName, setPlaceName] = useState('dhaka')
-  // const [places, setPlaces] = useState({});
-  // const url = `https://barikoi.xyz/v1/api/search/autocomplete/MTpPVkhCVEZaM09F/place?q=${placeName}`;
-  // useEffect(() => {
-  //   fetch(url)
-  //     ?.then(res => res.json())
-  //     ?.then(data => setPlaces(data))
-  //     console.log(setPlaces)
-  // }, []) 
-
-
-  // ==============================
-  // ===============================
+  
 
   return (
     // <LocationContext.Provider value={[places, setPlaces, placeName, setPlaceName]}>
     // <SingleTicketContext.Provider value={[singleTicket, setSingleTicket]}>
 
     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
+      <div style={bg}>
         <Router>
           <Header />
           <Switch>
             <Route exact path='/'>
-              <Home tickets={[tickets, setTickets]}/>
+              <Home tickets={[tickets, setTickets]} />
             </Route>
             <PrivateRoute path='/destination'>
-              <Destination />
+              <Destination background={[bg, setBg]} />
             </PrivateRoute>
             <Route path='/login'>
-              <Login />
+              <Login background={[bg, setBg]} />
             </Route>
             <Route path='/blog'>
-              <Blog />
+              <Blog background={[bg, setBg]} />
             </Route>
             <Route path='/Contact'>
-              <Contact />
+              <Contact background={[bg, setBg]} />
             </Route>
             <PrivateRoute path='/profile'>
-              <Profile />
+              <Profile background={[bg, setBg]} />
             </PrivateRoute>
           </Switch>
         </Router>
+      </div>
     </UserContext.Provider>
   );
 }

@@ -1,12 +1,25 @@
 .Profile {
-    text-align: center;
-    border: 1px solid red;
-    width: 40%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    height: 20vmax;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding: 20px;
     display: flex;
-    justify-content: center;
-    height: 20vmin;
+    flex-direction: column;
+    border-radius: 8px;
+    height: 100%;
 }
 
 .Profile .profile-info {
-    
+    text-align: center;
+}
+
+.Profile .profile-info button {
+    width: 50%;
+    margin-top: auto;
+    border-style: none;
+    background-color: #ff6e40;
+    padding: 8px;
+    color: white;
+    border-radius: 3px;
 }

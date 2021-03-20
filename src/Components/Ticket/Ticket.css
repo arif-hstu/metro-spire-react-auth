@@ -24,5 +24,8 @@
 
 .Ticket .ticketContent .bottomPart {
     margin-top: auto;
+}
+
+.Ticket .ticketContent .bottomPart h2 {
     text-align: center;
 }
