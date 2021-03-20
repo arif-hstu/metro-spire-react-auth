@@ -27,8 +27,16 @@ export const UserContext = createContext();
 // useContext hook for Location data
 // export const LocationContext = createContext();
 
+// ==============================
+// ==============================
+
 
 function App() {
+
+  // consume UserContext api data from App
+  // const [tickets, setTickets] = useContext(UserContext);
+
+
 
   // // useState to hold the background property
   // const [bg, setBg] = useState({
@@ -39,14 +47,21 @@ function App() {
   //   float: 'left'
   // });
 
-  const history = useHistory();
-
   // useState hook to set loggedInUser data
 
   const [loggedInUser, setLoggedInUser] = useState([]);
 
   // useState hook to set fetched data from api
   const [tickets, setTickets] = useState([]);
+
+  // get ticket data from mocki.io fake api
+  useEffect(() => {
+    const url = 'https://api.mocki.io/v1/9d296506';
+
+    fetch(url)
+      .then(res => res.json())
+      .then(data => setTickets(data));
+  }, [])
 
 
   // // useState to get search place data
@@ -60,33 +75,38 @@ function App() {
   //     console.log(setPlaces)
   // }, []) 
 
+
+  // ==============================
+  // ===============================
+
   return (
     // <LocationContext.Provider value={[places, setPlaces, placeName, setPlaceName]}>
-      <UserContext.Provider value={[loggedInUser, setLoggedInUser, tickets, setTickets]}>
-        <div >
-          <Router>
-            <Header />
-            <Switch>
-              <Route exact path='/'>
-                <Home />
-              </Route>
-              <PrivateRoute path='/destination'>
-                <Destination />
-              </PrivateRoute>
-              <Route path='/login'>
-                <Login />
-              </Route>
-              <Route path='/blog'>
-                <Blog />
-              </Route>
-              <Route path='/Contact'>
-                <Contact />
-              </Route>
-            </Switch>
-          </Router>
-        </div>
-      </UserContext.Provider>
-    // </LocationContext.Provider>
+    // <SingleTicketContext.Provider value={[singleTicket, setSingleTicket]}>
+
+    <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
+      <div >
+        <Router>
+          <Header />
+          <Switch>
+            <Route exact path='/'>
+              <Home tickets={[tickets, setTickets]}/>
+            </Route>
+            <PrivateRoute path='/destination'>
+              <Destination />
+            </PrivateRoute>
+            <Route path='/login'>
+              <Login />
+            </Route>
+            <Route path='/blog'>
+              <Blog />
+            </Route>
+            <Route path='/Contact'>
+              <Contact />
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+    </UserContext.Provider>
   );
 }
 

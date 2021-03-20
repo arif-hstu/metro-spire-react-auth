@@ -12,8 +12,15 @@
 
 .Summary .ticketDetails {
     margin-top: 6%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .Summary .ticketDetails img {
     width: 20%;
 }
+

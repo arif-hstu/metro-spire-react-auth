@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { SingleTicketContext } from '../../App';
 
 // import styleSheet
 import './Ticket.css'
@@ -11,12 +12,22 @@ const Ticket = (props) => {
         backgroundSize: '100%',
         backgroundRepeat: 'no-repeat',
     }
+
+
+
+    // ====================
+    const singleTicketHandler = (e) => {
+        console.log(props.ticket)
+        localStorage.setItem('ticketInfo', JSON.stringify(props.ticket))
+    }
+    // ====================
+
     return (
         <div className='Ticket' style={background}>
             <div className="ticketContent">
                 <div className="topPart">
                     <h4>{ticketName}</h4>
-                    <Link className='primaryButton' to='/destination'>BUY NOW</Link>
+                    <Link onClick={() => singleTicketHandler()} className='primaryButton' to='/destination'>BUY NOW</Link>
                 </div>
                 <div className="bottomPart">
                     <h2>{ticketPrice}</h2>
@@ -27,4 +38,4 @@ const Ticket = (props) => {
     );
 };
 
-export default Ticket;
+export default Ticket; // exported to Destination Details

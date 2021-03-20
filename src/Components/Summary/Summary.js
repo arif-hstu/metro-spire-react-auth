@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../App';
 import { LocationDetailsContext } from '../DestinationDetails/DestinationDetails';
 
@@ -6,13 +6,21 @@ import { LocationDetailsContext } from '../DestinationDetails/DestinationDetails
 import ticketImage from '../../images/ticketIcon.png'
 // import styleSheet
 import './Summary.css'
+import TicketDetails from '../TicketDetails/TicketDetails';
 
 const Summary = () => {
+    //================
+    const [ticket, setTicket] = useState({});
+    useEffect(() => {
+        const newTicket = JSON.parse(localStorage.getItem('ticketInfo'));
+        setTicket(newTicket)
+    }, [])
+    //================
+
     //consume from DestinationDetails
     const [locationDetails, setLocationDetails] = useContext(LocationDetailsContext);
     // consume from App
     const [tickets, setTickets] = useContext(UserContext);
-    console.log(tickets)
     return (
         <div className='Summary'>
             <div className='locationName'>
@@ -24,13 +32,9 @@ const Summary = () => {
                     }
                 </div>
             </div>
-            <div className="ticketDetails">
-                <div>
-                    <img src={ticketImage} alt="" srcset="" />
-                    <p>{tickets.ticketName}</p>
-                    <p>{tickets.price}</p>
-                </div>                
-            </div>
+            <TicketDetails ticket={[ticket, setTicket, ticketImage]} />
+            <TicketDetails ticket={[ticket, setTicket, ticketImage]} />
+            <TicketDetails ticket={[ticket, setTicket, ticketImage]} />
         </div>
     );
 };

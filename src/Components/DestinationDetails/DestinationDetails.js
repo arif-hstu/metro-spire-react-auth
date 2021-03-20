@@ -41,10 +41,9 @@ const DestinationDetails = () => {
                             <LocationSearch />
                             <br />
                             <input className='button' type="submit" value="Search" />
-                        </form> : <Summary />
+                        </form> : 
+                        <Summary />
                 }
-
-
             </div>
         </LocationDetailsContext.Provider>
     );
