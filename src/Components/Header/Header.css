@@ -17,3 +17,17 @@
     width: 15vmin;
 }
 
+
+@media only screen and (max-width: 600px){
+	/*Big smartphones [426px -> 600px]*/
+    .Header .main .navigation>* {
+        padding: 5px 5px;
+        margin: 0px 5px;
+        font-size: 2vmin;
+    }
+}
+
+@media only screen and (max-width: 425px){
+	/*Small smartphones [325px -> 425px]*/
+
+}

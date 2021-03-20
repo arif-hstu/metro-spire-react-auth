@@ -9,11 +9,14 @@
     text-align: center;  
     padding: 3%;
     width: 30%;
+    background-color: #efefef;
+    cursor: pointer;
 }
 
 .emailLogin {
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 1%;
+    background-color: #efefef;
 }
 
 .emailLogin form >* {
@@ -23,8 +26,8 @@
 }
 
 .emailLogin form input, .emailLogin form input {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     width: 90%;
+    border-radius: 3px;
 }
 .emailLogin form .inputButton {
     width: 90%;

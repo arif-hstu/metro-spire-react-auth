@@ -1,10 +1,13 @@
 import React from 'react';
-import { useEffect } from 'react';
+
+import './Blog.css'
 
 const Blog = () => {
     return (
-        <div>
-            <h2>This is Blog</h2>
+        <div className="Blog">
+            <div className='blog'>
+            <h2>Our Awesome Blog!</h2>
+        </div>
         </div>
     );
 };

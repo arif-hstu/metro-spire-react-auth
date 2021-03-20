@@ -27,11 +27,13 @@ const Destination = () => {
 
     return (
         <LocationContext.Provider value={[location, setLocation]}>
-        <div className='Destination'>
-            <DestinationDetails />
-            <div className="googleMap">
-                <HereMap></HereMap>
-            </div>
+            <div className='Destination'>
+                <div className="details">
+                <DestinationDetails />
+                </div>
+                <div className="hereMap">
+                    <HereMap></HereMap>
+                </div>
             </div>
         </LocationContext.Provider>
     );

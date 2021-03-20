@@ -11,3 +11,8 @@
     height: 100vw;
     width: 100vw;
 } */
+
+
+body {
+    background: linear-gradient(to right, #cad4e0, #dadeea, #cad4e0);
+}

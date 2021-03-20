@@ -1,9 +1,13 @@
 import React from 'react';
 
+import './Contact.css'
+
 const Contact = () => {
     return (
-        <div>
-            <h3>This is conatcts</h3>
+        <div className="Contact">
+            <div className='contact'>
+                <h2>Here Contact Info Goes!</h2>
+            </div>
         </div>
     );
 };

@@ -1,0 +1,14 @@
+.Blog {
+    display: flex;
+    justify-content: center;
+}
+
+.blog {
+    background-color: #efefef;
+    width: 45%;
+    height: 20vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}

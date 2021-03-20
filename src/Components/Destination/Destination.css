@@ -5,3 +5,19 @@
     margin-right: 7%;
 }
 
+
+@media only screen and (max-width: 600px){
+	/*Big smartphones [426px -> 600px]*/
+    .Destination {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+    }
+
+    .Destination .hereMap {
+        margin-top: 50px;
+    }
+
+}
+

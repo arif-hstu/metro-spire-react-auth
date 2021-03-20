@@ -1,6 +1,7 @@
 .DestinationDetails {
     background-color: #efefef;
-    padding: 2%;
+    padding: 8%;
+    width: 35vmin;
 }
 
 .DestinationDetails p {
@@ -25,5 +26,14 @@
     width: 100%;
 }
 
+
+@media only screen and (max-width: 600px){
+	/*Big smartphones [426px -> 600px]*/
+    .DestinationDetails {
+        text-align: center;
+        width: 38vmin;
+    }
+
+}
 
 
