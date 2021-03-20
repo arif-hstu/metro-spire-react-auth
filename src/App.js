@@ -2,7 +2,7 @@
 import './App.css';
 
 // import react router components
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { Switch, Route, useHistory, useParams } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom'
 
 // import custom components
@@ -15,7 +15,7 @@ import Contact from './Components/Contact/Contact'
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 
 // import background image
-import bgImage from './images/homeBg.png'
+import bgImage from './images/mainBackground.jpg'
 
 // import hooks
 import { createContext, useEffect } from 'react';
@@ -37,16 +37,37 @@ function App() {
   // consume UserContext api data from App
   // const [tickets, setTickets] = useContext(UserContext);
 
-
-
-  // // useState to hold the background property
+  // useState to hold the background property
   const [bg, setBg] = useState({
     background: `url(${bgImage}) no-repeat`,
-    backgroundSize: '100vw',
+    // backgroundSize: '100vw',
     height: '100vh',
     width: '100vw',
-    float: 'left'
+    float: 'center',
+    backgroundPosition: 'center center',
+    backgroundSize: 'cover'
   });
+
+  // const history = useHistory();
+  // console.log(history)
+  // const url = window.location.pathname;
+  useEffect(() => {
+    //=========
+
+    //=========
+    setBg({
+      background: `url(${bgImage}) no-repeat`,
+      backgroundSize: '100vw',
+      height: '100vh',
+      width: '100vw',
+      float: 'left'
+  })}, [])
+
+
+  
+
+
+  
 
   // useState hook to set loggedInUser data
 
@@ -55,16 +76,33 @@ function App() {
   // useState hook to set fetched data from api
   const [tickets, setTickets] = useState([]);
 
-  // get ticket data from mocki.io fake api
+  // fetch mock data
+  const data = [{
+    ticketName: "ONE TIME TICKET",
+    ticketPrice: 100,
+    ticketBackground: "https://i.imgur.com/gFxVE2Y.png"
+  },
+  {
+    ticketName: "ONE DAY PASS",
+    ticketPrice: 500,
+    ticketBackground: "https://i.imgur.com/VANKF8z.png"
+  },
+  {
+    ticketName: "MONTHLY PASS",
+    ticketPrice: 1500,
+    ticketBackground: "https://i.imgur.com/d7xONME.png"
+  },
+  {
+    ticketName: "ANNUAL PASS",
+    ticketPrice: 9000,
+    ticketBackground: "https://i.imgur.com/bBquyB9.png"
+  }
+  ]
   useEffect(() => {
-    const url = 'https://api.mocki.io/v1/9d296506';
+    setTickets(data);
+  }, []);
 
-    fetch(url)
-      .then(res => res.json())
-      .then(data => setTickets(data));
-  }, [])
 
-  
 
   return (
     // <LocationContext.Provider value={[places, setPlaces, placeName, setPlaceName]}>

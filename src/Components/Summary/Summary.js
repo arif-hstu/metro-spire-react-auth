@@ -8,7 +8,9 @@ import ticketImage from '../../images/ticketIcon.png'
 import './Summary.css'
 import TicketDetails from '../TicketDetails/TicketDetails';
 
-const Summary = () => {
+const Summary = (props) => {
+
+    const [startDate, setStartDate] = props.dateState;
     //================
     const [ticket, setTicket] = useState({});
     useEffect(() => {
@@ -21,6 +23,7 @@ const Summary = () => {
     const [locationDetails, setLocationDetails] = useContext(LocationDetailsContext);
     // consume from App
     const [tickets, setTickets] = useContext(UserContext);
+    console.log(startDate.getDate())
     return (
         <div className='Summary'>
             <div className='locationName'>
@@ -32,6 +35,7 @@ const Summary = () => {
                     }
                 </div>
             </div>
+            <p className='date'>Travel Start Date: {startDate.getDate()}/{startDate.getMonth()}/{startDate.getFullYear()}</p>
             <TicketDetails ticket={[ticket, setTicket, ticketImage]} />
             <TicketDetails ticket={[ticket, setTicket, ticketImage]} />
             <TicketDetails ticket={[ticket, setTicket, ticketImage]} />

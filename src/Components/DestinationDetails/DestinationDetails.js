@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import { LocationContext } from '../../App';
+import Date from '../Date/Date';
 import LocationSearch from '../LocationSearch.js/LocationSearch';
 import Summary from '../Summary/Summary';
 import './DestinationDetails.css'
@@ -27,6 +28,8 @@ const DestinationDetails = () => {
     //     e.preventDefault()
     // }
 
+    const [startDate, setStartDate] = useState(new window.Date());
+
 
     const [locationDetails, setLocationDetails] = useState([]);
     return (
@@ -40,9 +43,10 @@ const DestinationDetails = () => {
                             <p>Pick To</p>
                             <LocationSearch />
                             <br />
+                            <Date className='date' dateState={[startDate, setStartDate]}/>
                             <input className='button' type="submit" value="Search" />
                         </form> : 
-                        <Summary />
+                        <Summary dateState={[startDate, setStartDate]}/>
                 }
             </div>
         </LocationDetailsContext.Provider>

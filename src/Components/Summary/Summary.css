@@ -24,3 +24,8 @@
     width: 20%;
 }
 
+.Summary .date {
+    /* background-color: aqua; */
+    text-align: center;
+    font-size: medium;
+}

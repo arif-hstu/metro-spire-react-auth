@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.8.3",
     "firebase": "^8.3.0",
     "react": "^17.0.1",
+    "react-datepicker": "^3.6.0",
     "react-dom": "^17.0.1",
     "react-google-maps": "^9.4.5",
     "react-here-map": "^4.0.0-0",

@@ -14,7 +14,7 @@ const Home = (props) => {
         <div className='Home'>
             <div className="tickets">
                 {
-                    tickets?.map(ticket => <Ticket ticket={ticket} />)
+                    tickets.map(ticket => <Ticket ticket={ticket} />)
                 }
             </div>
         </div>
