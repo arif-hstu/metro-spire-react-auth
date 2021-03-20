@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import Select from 'react-select';
 import { LocationContext } from '../../Components/Destination/Destination';
+import { LocationDetailsContext } from '../DestinationDetails/DestinationDetails';
 
 const locations = [
     { label: 'Dhaka', value: '23.777176 90.399452' },
@@ -35,23 +36,24 @@ const singleCoordinates = () => {
     return locArray;
 }
 
-console.log(singleCoordinates())
 
 function LocationSearch() {
-    const [location, setLocation] = useContext(LocationContext);
-
-
-
-    // cosume context from App
-    // const [places, setPlaces] = useContext(LocationContext);
-    // console.log(places)
+    // consume from DestinationDetails
+    const [locationDetails, setLocationDetails] = useContext(LocationDetailsContext);
+    
+    const selectLocation = (value) => {
+        const newLocationData = [...locationDetails];
+        newLocationData.push(value);
+        setLocationDetails(newLocationData);
+    }
     return (
         <div className="App">
             <Select
                 options={locations}
+                onChange={selectLocation}
             />
         </div>
     );
 }
 
-export default LocationSearch;
+export default LocationSearch; // exported to DestinationDetails

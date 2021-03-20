@@ -70,7 +70,6 @@ function App() {
               <Route exact path='/'>
                 <Home />
               </Route>
-
               <PrivateRoute path='/destination'>
                 <Destination />
               </PrivateRoute>

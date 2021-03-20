@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { LocationContext } from '../../App';
 import LocationSearch from '../LocationSearch.js/LocationSearch';
 import Summary from '../Summary/Summary';
@@ -8,6 +8,8 @@ import './DestinationDetails.css'
 
 
 
+
+export const LocationDetailsContext = createContext();
 
 
 const DestinationDetails = () => {
@@ -25,23 +27,26 @@ const DestinationDetails = () => {
     //     e.preventDefault()
     // }
 
-    return (
-        <div className='DestinationDetails'>
-            {
-                !hasSelected ?
-                    <form onSubmit={searchHandle}>
-                        {/* <input type="text" onBlur={placeNameHandler} name="placeName" id=""/> */}
-                        <p>Pick From</p>
-                        <LocationSearch />
-                        <p>Pick To</p>
-                        <LocationSearch />
-                        <br />
-                        <input className='button' type="submit" value="Search" />
-                    </form> : <Summary />
-            }
-            
 
-        </div>
+    const [locationDetails, setLocationDetails] = useState([]);
+    return (
+        <LocationDetailsContext.Provider value={[locationDetails, setLocationDetails]}>
+            <div className='DestinationDetails'>
+                {
+                    !hasSelected ?
+                        <form onSubmit={searchHandle}>
+                            <p>Pick From</p>
+                            <LocationSearch />
+                            <p>Pick To</p>
+                            <LocationSearch />
+                            <br />
+                            <input className='button' type="submit" value="Search" />
+                        </form> : <Summary />
+                }
+
+
+            </div>
+        </LocationDetailsContext.Provider>
     );
 };
 

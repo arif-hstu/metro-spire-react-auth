@@ -6,7 +6,7 @@ import Ticket from '../Ticket/Ticket';
 import './Home.css'
 
 const Home = () => {
-    // consume UserContext api data
+    // consume UserContext api data from App
     const [tickets, setTickets] = useContext(UserContext);
 
     // get ticket data from mocki.io fake api
@@ -17,6 +17,7 @@ const Home = () => {
             ?.then(res => res.json())
             ?.then(data => setTickets(data));
     }, [])
+
     return (
         <div className='Home'>
             <div className="tickets">

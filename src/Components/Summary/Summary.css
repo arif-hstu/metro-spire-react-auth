@@ -1,3 +1,19 @@
-.Summary {
-    background-color: aqua;
+
+.Summary .locationName .name {
+    background-color: #ff6e40;
+    padding: 10px;
+    color: white;
+    border-radius: 7px;
+}
+
+.Summary .locationName .name span {
+    margin-right: 5px;
+}
+
+.Summary .ticketDetails {
+    margin-top: 6%;
+}
+
+.Summary .ticketDetails img {
+    width: 20%;
 }
