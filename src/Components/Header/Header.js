@@ -1,8 +1,10 @@
 // import styleSheet
 import './Header.css'
 import React, { useContext } from 'react';
+
 // import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+
 // import logo
 import logo from "../../images/metroLogoDark.png";
 import { UserContext } from '../../App';
@@ -28,7 +30,9 @@ const Header = () => {
                         <Link to='/profile'>
                             {loggedInUser.displayName || 'Anonymous'}
                         </Link> :
-                        <Link className='signUp' to='/login'>Sign Up</Link>
+                        <div className='signUpDiv' >
+                            <Link  to='/login'><span className='signUp'>Sign Up</span></Link>
+                        </div>
                     }
                 </div>
             </div>
@@ -36,4 +40,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default Header; // exported to App

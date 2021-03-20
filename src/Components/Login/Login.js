@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory, useLocation } from 'react-router';
 
 // import firebase components
 import firebase from "firebase/app";
@@ -10,18 +11,14 @@ import { useContext } from 'react';
 
 // import custom context
 import { UserContext } from '../../App';
-import { useHistory, useLocation } from 'react-router';
 
 // import styleSheet
 import './Login.css'
 
 // import images
 import googleIcon from '../../images/googleIcon.png'
-import facebookIcon from '../../images/fbIcon.png'
 
 const Login = () => {
-
-
     // initialization of firebase app
     if (firebase.apps.length === 0) {
         firebase.initializeApp(firebaseConfig)
@@ -29,18 +26,6 @@ const Login = () => {
 
     // consume userContext data from App
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-
-    // useEffect(() => {
-    //     // change the App component background
-    //     const newBg = {
-    //         background: 'red',
-    //         backgroundSize: '100vw',
-    //         height: '100vh',
-    //         width: '100vw',
-    //         float: 'left'
-    //     }
-    //     setBg(newBg);
-    // },[])
 
     // get data to redirect from login page
     let history = useHistory();
@@ -63,8 +48,6 @@ const Login = () => {
                 const user = result.user;
                 setLoggedInUser(user);
                 history.replace(from);
-                console.log(from)
-
                 // get user data to set user state
                 const { displayName, photoURL, email, password } = result.loggedInUser;
                 const signedInUser = {
@@ -81,35 +64,14 @@ const Login = () => {
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
+                console.log(errorMessage);
                 // The email of the user's account used.
                 var email = error.email;
                 // The firebase.auth.AuthCredential type that was used.
                 var credential = error.credential;
-                // ...
             });
     }
 
-    // signout handler
-    const handleSignOut = () => {
-        firebase.auth().signOut()
-            .then((res) => {
-                const signedOutUser = {
-                    isSignedIn: false,
-                    newUser: false,
-                    displayName: '',
-                    photo: '',
-                    email: '',
-                    password: '',
-                    error: '',
-                    successful: ''
-                }
-                setLoggedInUser(signedOutUser)
-                console.log('sign out successful')
-            }).catch((error) => {
-                // An error happened.
-            });
-
-    }
 
     // handle submit form
     const handleRegisterSubmit = (e) => {
@@ -138,7 +100,6 @@ const Login = () => {
 
     const handleLogin = () => {
         const newUserInfo = { ...loggedInUser };
-        console.log(loggedInUser)
         newUserInfo.isSignedIn = true;
         setLoggedInUser(newUserInfo)
     }
@@ -150,16 +111,19 @@ const Login = () => {
     }
 
     const handleLoginSubmit = (e) => {
-        console.log(loggedInUser)
         firebase.auth().signInWithEmailAndPassword(loggedInUser.email, loggedInUser.password)
             .then((userCredential) => {
-                // Signed in
-                var user = userCredential.user;
+                const newUserInfo = { ...loggedInUser };
+                newUserInfo.error = '';
+                newUserInfo.successful = 'User Created Successfully';
+                setLoggedInUser(newUserInfo);
+                history.replace(from);
                 history.replace(from);
             })
             .catch((error) => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
+                console.log(errorMessage);
             });
         e.preventDefault();
     }
@@ -182,15 +146,12 @@ const Login = () => {
         }
 
         e.preventDefault();
-        console.log(loggedInUser)
-
     }
 
 
     return (
         <div className='Login'>
             <div className='emailLogin'>
-
                 {
                     loggedInUser.isSignedIn ?
                         <form onSubmit={handleLoginSubmit }>
@@ -205,7 +166,6 @@ const Login = () => {
                                 <p>Don't have an account?</p>
                                 <span onClick={handleSignUp}>Create an account</span>
                             </div>
-
                         </form> :
                         <form onSubmit={handleRegisterSubmit}>
                             <h4>Create an account </h4>
@@ -228,9 +188,6 @@ const Login = () => {
                 {
                     loggedInUser.error && <p style={{ color: 'red' }}>{loggedInUser.error}</p>
                 }
-                {
-                    loggedInUser.successful && <p style={{ color: 'green' }}>{loggedInUser.successful}</p>
-                }
             </div>
             
             <div className="socialLogin">
@@ -241,10 +198,8 @@ const Login = () => {
                     <p onClick={handleGoogleSignIn}>Google Sign in</p>
                 </div>
             </div>
-
-
         </div>
     );
 };
 
-export default Login;
+export default Login; // exported to App

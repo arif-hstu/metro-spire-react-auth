@@ -26,7 +26,6 @@
     width: 100%;
 }
 
-
 @media only screen and (max-width: 600px){
 	/*Big smartphones [426px -> 600px]*/
     .DestinationDetails {

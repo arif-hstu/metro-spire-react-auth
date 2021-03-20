@@ -1,6 +1,4 @@
-import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { SingleTicketContext } from '../../App';
 
 // import styleSheet
 import './Ticket.css'
@@ -15,12 +13,10 @@ const Ticket = (props) => {
 
 
 
-    // ====================
     const singleTicketHandler = (e) => {
         console.log(props.ticket)
         localStorage.setItem('ticketInfo', JSON.stringify(props.ticket))
     }
-    // ====================
 
     return (
         <div className='Ticket' style={background}>

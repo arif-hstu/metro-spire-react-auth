@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import Select from 'react-select';
-import { LocationContext } from '../../Components/Destination/Destination';
 import { LocationDetailsContext } from '../DestinationDetails/DestinationDetails';
 
 const locations = [
@@ -11,31 +10,6 @@ const locations = [
     { label: 'Jessore', value: '23.16971 89.21371' },
     { label: 'Bogura', value: '24.8510 89.3711' },
 ];
-
-const locationCoordinates = locations.map((loc => loc.value));
-
-const locArray = [];
-let locObject = {
-    locationName: '',
-    lat: '',
-    lng: ''
-};
-
-
-const singleCoordinates = () => {
-    locationCoordinates.map((loc) => {
-        const splitted = loc.split(' ');
-        locObject = splitted.map(split => {
-            locObject.lat = split[0];
-            locObject.lng = split[1];
-            
-            return locObject;
-        })
-        return locArray.push(locObject);
-    });
-    return locArray;
-}
-
 
 function LocationSearch() {
     // consume from DestinationDetails

@@ -6,7 +6,6 @@ import firebase from "firebase/app";
 
 // improt styleSheet
 import './Profile.css'
-import { Link } from 'react-router-dom';
 
 const Profile = () => {
     // consume UserContext from App

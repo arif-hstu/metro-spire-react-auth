@@ -59,8 +59,8 @@
 
 .socialLogin .button {
     width: 100%;
-    /* background-color: blanchedalmond; */
     line-height: 0%;
+    margin-right: -7%;
 }
 .socialLogin .button p {
     color: black;
@@ -75,4 +75,12 @@
 .emailLogin form .signupInfo span {
     color: #ff6e40;
     cursor: pointer;
+}
+
+@media only screen and (max-width: 600px){
+	/*Big smartphones [426px -> 600px]*/
+    .socialLogin {
+        font-size: 2vmin;
+    }
+    
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 
+// import styleSheet
 import './Contact.css'
 
 const Contact = () => {

@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from 'react';
-import { UserContext } from '../../App';
+import React from 'react';
 import Ticket from '../Ticket/Ticket';
 
 // import stylesheet
@@ -21,4 +20,4 @@ const Home = (props) => {
     );
 };
 
-export default Home;
+export default Home; // exported to App

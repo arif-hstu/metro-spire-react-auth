@@ -6,8 +6,8 @@ const Blog = () => {
     return (
         <div className="Blog">
             <div className='blog'>
-            <h2>Our Awesome Blog!</h2>
-        </div>
+                <h2>Our Awesome Blog!</h2>
+            </div>
         </div>
     );
 };

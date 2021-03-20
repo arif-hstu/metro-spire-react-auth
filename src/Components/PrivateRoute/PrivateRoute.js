@@ -6,7 +6,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { UserContext } from '../../App';
 
 const PrivateRoute = ({ children, ...rest }) => {
-    // consume UserContext data
+    // consume UserContext data from App
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
     return (

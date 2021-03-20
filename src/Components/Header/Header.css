@@ -17,6 +17,18 @@
     width: 15vmin;
 }
 
+.Header .signUpDiv >* {
+    text-decoration: none;
+}
+
+.Header .signUp, .Header .signUpDiv {
+    background-color: #ff6e40;
+    padding: 3px;
+    color: white;
+    display: inline;
+    text-decoration: none;
+    border-radius: 3px;
+}
 
 @media only screen and (max-width: 600px){
 	/*Big smartphones [426px -> 600px]*/
@@ -27,7 +39,3 @@
     }
 }
 
-@media only screen and (max-width: 425px){
-	/*Small smartphones [325px -> 425px]*/
-
-}

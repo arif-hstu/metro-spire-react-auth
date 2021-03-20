@@ -1,13 +1,8 @@
-import { createContext, useContext, useState } from 'react';
-import { LocationContext } from '../../App';
+import { createContext, useState } from 'react';
 import Date from '../Date/Date';
 import LocationSearch from '../LocationSearch.js/LocationSearch';
 import Summary from '../Summary/Summary';
 import './DestinationDetails.css'
-
-
-
-
 
 
 export const LocationDetailsContext = createContext();
@@ -19,14 +14,6 @@ const DestinationDetails = () => {
         setHasSelected(true)
         e.preventDefault();
     }
-
-    // consume data from LocationContext
-    // const [placeName, setPlaceName] = useContext(LocationContext);
-
-    // const placeNameHandler = (e) => {
-    //     // setPlaceName(e.target.value)
-    //     e.preventDefault()
-    // }
 
     const [startDate, setStartDate] = useState(new window.Date());
 
