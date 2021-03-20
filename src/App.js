@@ -18,11 +18,15 @@ import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import bgImage from './images/homeBg.png'
 
 // import hooks
-import { createContext } from 'react';
+import { createContext, useEffect } from 'react';
 import { useState } from 'react';
 
 // useContext hook to provide tickets api data
 export const UserContext = createContext();
+
+// useContext hook for Location data
+// export const LocationContext = createContext();
+
 
 function App() {
 
@@ -36,7 +40,6 @@ function App() {
   // });
 
   const history = useHistory();
-  console.log(history)
 
   // useState hook to set loggedInUser data
 
@@ -45,31 +48,46 @@ function App() {
   // useState hook to set fetched data from api
   const [tickets, setTickets] = useState([]);
 
+
+  // // useState to get search place data
+  // const [placeName, setPlaceName] = useState('dhaka')
+  // const [places, setPlaces] = useState({});
+  // const url = `https://barikoi.xyz/v1/api/search/autocomplete/MTpPVkhCVEZaM09F/place?q=${placeName}`;
+  // useEffect(() => {
+  //   fetch(url)
+  //     ?.then(res => res.json())
+  //     ?.then(data => setPlaces(data))
+  //     console.log(setPlaces)
+  // }, []) 
+
   return (
-    <UserContext.Provider value={[loggedInUser, setLoggedInUser, tickets, setTickets]}>
-      <div >
-        <Router>
-          <Header />
-          <Switch>
-            <Route exact path='/'>
-              <Home />
-            </Route>
-            <PrivateRoute path='/destination'>
-              <Destination />
-            </PrivateRoute>
-            <Route path='/login'>
-              <Login />
-            </Route>
-            <Route path='/blog'>
-              <Blog />
-            </Route>
-            <Route path='/Contact'>
-              <Contact />
-            </Route>
-          </Switch>
-        </Router>
-      </div>
-    </UserContext.Provider>
+    // <LocationContext.Provider value={[places, setPlaces, placeName, setPlaceName]}>
+      <UserContext.Provider value={[loggedInUser, setLoggedInUser, tickets, setTickets]}>
+        <div >
+          <Router>
+            <Header />
+            <Switch>
+              <Route exact path='/'>
+                <Home />
+              </Route>
+
+              <PrivateRoute path='/destination'>
+                <Destination />
+              </PrivateRoute>
+              <Route path='/login'>
+                <Login />
+              </Route>
+              <Route path='/blog'>
+                <Blog />
+              </Route>
+              <Route path='/Contact'>
+                <Contact />
+              </Route>
+            </Switch>
+          </Router>
+        </div>
+      </UserContext.Provider>
+    // </LocationContext.Provider>
   );
 }
 

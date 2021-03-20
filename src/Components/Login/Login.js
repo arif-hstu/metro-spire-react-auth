@@ -154,7 +154,6 @@ const Login = () => {
                 // Signed in
                 var user = userCredential.user;
                 history.replace(from);
-                console.log(user)
             })
             .catch((error) => {
                 var errorCode = error.code;
