@@ -2,7 +2,7 @@
 import './App.css';
 
 // import react router components
-import { Switch, Route, useHistory, useParams } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom'
 
 // import custom components
@@ -25,18 +25,7 @@ import Profile from './Components/Profile/Profile';
 // useContext hook to provide tickets api data
 export const UserContext = createContext();
 
-// useContext hook for Location data
-// export const LocationContext = createContext();
-
-// ==============================
-// ==============================
-
-
 function App() {
-
-  // consume UserContext api data from App
-  // const [tickets, setTickets] = useContext(UserContext);
-
   // useState to hold the background property
   const [bg, setBg] = useState({
     background: `url(${bgImage}) no-repeat`,
@@ -48,13 +37,7 @@ function App() {
     backgroundSize: 'cover'
   });
 
-  // const history = useHistory();
-  // console.log(history)
-  // const url = window.location.pathname;
   useEffect(() => {
-    //=========
-
-    //=========
     setBg({
       background: `url(${bgImage}) no-repeat`,
       backgroundSize: '100vw',
@@ -63,14 +46,7 @@ function App() {
       float: 'left'
   })}, [])
 
-
-  
-
-
-  
-
   // useState hook to set loggedInUser data
-
   const [loggedInUser, setLoggedInUser] = useState([]);
 
   // useState hook to set fetched data from api

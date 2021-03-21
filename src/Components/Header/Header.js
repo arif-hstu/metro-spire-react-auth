@@ -26,13 +26,15 @@ const Header = () => {
                     <Link to='/blog'>Blog</Link>
                     <Link to='/contact'>Contact</Link>
                     {
-                        loggedInUser.email ? 
-                        <Link to='/profile'>
-                            {loggedInUser.displayName || 'Anonymous'}
-                        </Link> :
-                        <div className='signUpDiv' >
-                            <Link  to='/login'><span className='signUp'>Sign Up</span></Link>
-                        </div>
+                        loggedInUser.email ?
+                            <Link to='/profile'>
+                                <div className="name">
+                                    {loggedInUser.displayName || 'Anonymous'}
+                                </div>
+                            </Link> :
+                            <div className='signUpDiv' >
+                                <Link to='/login'><span className='signUp'>Sign Up</span></Link>
+                            </div>
                     }
                 </div>
             </div>

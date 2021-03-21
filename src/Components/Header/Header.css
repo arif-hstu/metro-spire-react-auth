@@ -13,6 +13,11 @@
     font-size: 2vmin;
 }
 
+.Header .navigation .name {
+    font-weight: 500;
+    display: inline;
+}
+
 .Header .logoHolder img {
     width: 15vmin;
 }

@@ -18,7 +18,7 @@ const Destination = () => {
                 <DestinationDetails />
                 </div>
                 <div className="hereMap">
-                    <HereMap></HereMap>
+                    {/* <HereMap></HereMap> */}
                 </div>
             </div>
         </LocationContext.Provider>

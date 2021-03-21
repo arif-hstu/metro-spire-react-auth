@@ -14,6 +14,26 @@
     text-align: center;
 }
 
+.Profile form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Profile form input {
+    margin: 5px 10px;
+    width: 45%;
+    padding: 5px;
+    border-style: none;
+}
+
+.Profile form .button {
+    width: 47%;
+    background-color: #d8d8d8;
+    padding: 2%;
+    cursor: pointer;
+}
+
 .Profile .profile-info button {
     width: 50%;
     margin-top: auto;

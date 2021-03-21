@@ -18,6 +18,10 @@ import './Login.css'
 // import images
 import googleIcon from '../../images/googleIcon.png'
 
+let userName;
+let userEmail;
+let userPassword;
+
 const Login = () => {
     // initialization of firebase app
     if (firebase.apps.length === 0) {
@@ -34,6 +38,8 @@ const Login = () => {
 
     // Create an instance of the Google provider object
     const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+
 
     // google sign in handler
     const handleGoogleSignIn = () => {
@@ -73,28 +79,82 @@ const Login = () => {
     }
 
 
+
+    // let isEmailValid = false;
+    // let isPasswordValid = false;
+
+
+    // handle onBlur input
+
+    const handleBlur = (e) => {
+        e.preventDefault();
+        // clear error message
+        const newUserInfo = { ...loggedInUser };
+        newUserInfo.error = '';
+        setLoggedInUser(newUserInfo);
+
+        let isNameValid;
+        let isEmailValid;
+        let isPasswordValid;
+        if (e.target.name === 'name') {
+            isNameValid = /^[a-zA-Z]+$/.test(e.target.value);
+            if (isNameValid) {
+                userName = e.target.value;
+            }
+        }
+        if (e.target.name === 'email') {
+            isEmailValid = /\S+@\S+\.\S+/.test(e.target.value);
+            console.log('handle blur:', loggedInUser)
+            if (isEmailValid) {
+                userEmail = e.target.value;
+                console.log('userEmail:', userEmail)
+            }
+        }
+        if (e.target.name === 'password') {
+            const isPasswordLengthValid = e.target.value.length > 6;
+            const passwordHasNumber = /\d{1}/.test(e.target.value);
+            isPasswordValid = isPasswordLengthValid && passwordHasNumber;
+            if (isPasswordValid) {
+                userPassword = e.target.value;
+                console.log('userPassword:', userPassword)
+            }
+        }
+
+        console.log('got from handleBlur:', userName, userEmail, userPassword)
+    }
+
     // handle submit form
     const handleRegisterSubmit = (e) => {
-        if (loggedInUser.email && loggedInUser.password) {
-            firebase.auth().createUserWithEmailAndPassword(loggedInUser.email, loggedInUser.password)
-                .then((userCredential) => {
-                    const newUserInfo = { ...loggedInUser };
-                    newUserInfo.error = '';
-                    newUserInfo.successful = 'User Created Successfully';
-                    setLoggedInUser(newUserInfo);
-                    history.replace(from);
+        console.log('handleRegistrationSubmit:',userName, userEmail, userPassword)
 
-                })
-                .catch((err) => {
-                    // var errorCode = error.code;
-                    var errorMessage = err.message;
-                    console.log(errorMessage)
-                    const newUserInfo = { ...loggedInUser };
-                    newUserInfo.error = errorMessage;
-                    setLoggedInUser(newUserInfo);
-                });
-        }
+        let isSuccess;
         e.preventDefault();
+        firebase.auth().createUserWithEmailAndPassword(userEmail, userPassword)
+            .then((userCredential) => {
+                isSuccess = true;
+                if (isSuccess && userEmail && userPassword) {
+                    const newUserInfo = { ...loggedInUser };
+                    newUserInfo.email = userEmail;
+                    newUserInfo.password = userPassword;
+                    newUserInfo.displayName = userName;
+                    newUserInfo.successful = 'Registration Successfull';
+                    setLoggedInUser(newUserInfo);
+                    console.log('Registration successful locally', userName, userEmail, userPassword)
+                    userEmail = '';
+                    userPassword = '';
+                    userName = '';
+
+                    history.replace(from);
+                }
+            })
+            .catch((err) => {
+                // var errorCode = error.code;
+                var errorMessage = err.message;
+                console.log(errorMessage)
+                const newUserInfo = { ...loggedInUser };
+                newUserInfo.error = errorMessage;
+                setLoggedInUser(newUserInfo);
+            });
     }
 
 
@@ -111,50 +171,47 @@ const Login = () => {
     }
 
     const handleLoginSubmit = (e) => {
-        firebase.auth().signInWithEmailAndPassword(loggedInUser.email, loggedInUser.password)
+        let isSuccess;
+        e.preventDefault();
+
+        // if (userEmail && userPassword) {
+        //     const newUserInfo = { ...loggedInUser };
+        //     newUserInfo.email = userEmail;
+        //     newUserInfo.password = userPassword;
+        //     setLoggedInUser(newUserInfo);
+        // }
+
+        firebase.auth().signInWithEmailAndPassword(userEmail, userPassword)
             .then((userCredential) => {
-                const newUserInfo = { ...loggedInUser };
-                newUserInfo.error = '';
-                newUserInfo.successful = 'User Created Successfully';
-                setLoggedInUser(newUserInfo);
-                history.replace(from);
-                history.replace(from);
+                isSuccess = true;
+                console.log('login succesful ');
+                if (isSuccess && userEmail && userPassword) {
+                    const newUserInfo = { ...loggedInUser };
+                    newUserInfo.email = userEmail;
+                    newUserInfo.password = userPassword;
+                    newUserInfo.successful = 'User Created Successfully';
+                    setLoggedInUser(newUserInfo);
+                    console.log('log in successful locally');
+                    userEmail = '';
+                    userPassword = '';
+                    userName = '';
+                    history.replace(from);
+                }
             })
             .catch((error) => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 console.log(errorMessage);
             });
-        e.preventDefault();
+
     }
-
-    // handle onBlur input
-    const handleBlur = (e) => {
-        let isFieldValid = true;
-        if (e.target.name === 'email') {
-            isFieldValid = /\S+@\S+\.\S+/.test(e.target.value);
-        }
-        if (e.target.name === 'password') {
-            const isPasswordValid = e.target.value.length > 6;
-            const passwordHasNumber = /\d{1}/.test(e.target.value);
-            isFieldValid = isPasswordValid && passwordHasNumber;
-        }
-        if (isFieldValid) {
-            const newUserInfo = { ...loggedInUser };
-            newUserInfo[e.target.name] = e.target.value;
-            setLoggedInUser(newUserInfo);
-        }
-
-        e.preventDefault();
-    }
-
 
     return (
         <div className='Login'>
             <div className='emailLogin'>
                 {
                     loggedInUser.isSignedIn ?
-                        <form onSubmit={handleLoginSubmit }>
+                        <form onSubmit={handleLoginSubmit}>
                             <h4>Login</h4>
                             <input type="text" name="email" placeholder='Email' onBlur={handleBlur} id="" />
                             <br />
@@ -169,14 +226,14 @@ const Login = () => {
                         </form> :
                         <form onSubmit={handleRegisterSubmit}>
                             <h4>Create an account </h4>
-                            <input type="text" name="displayName" placeholder='Name' onBlur={handleBlur} id="" />
+                            <input type="text" name="name" placeholder='Name' onBlur={handleBlur} id="" />
                             <br />
                             <input type="text" name="email" placeholder='Username or Email' onBlur={handleBlur} id="" />
                             <br />
                             <input type="password" name="password" placeholder='Password' onBlur={handleBlur} id="" />
-                            <br />
-                            <input type="password" name="password" placeholder='Confirm Password' onBlur={handleBlur} id="" />
-                            <br />
+                            {/* <br />
+                            <input type="password" name="password" placeholder='Confirm Password' id="" />
+                            <br /> */}
                             <input className='inputButton' type="submit" value='Create an account'></input>
 
                             <div className='signupInfo'>
@@ -189,10 +246,10 @@ const Login = () => {
                     loggedInUser.error && <p style={{ color: 'red' }}>{loggedInUser.error}</p>
                 }
             </div>
-            
+
             <div className="socialLogin">
                 <div className="icon">
-                    <img src={googleIcon} alt=""/>
+                    <img src={googleIcon} alt="" />
                 </div>
                 <div className="button">
                     <p onClick={handleGoogleSignIn}>Google Sign in</p>
