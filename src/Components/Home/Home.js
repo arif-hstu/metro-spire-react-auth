@@ -6,8 +6,6 @@ import './Home.css'
 
 const Home = (props) => {
     const [tickets, setTickets] = props.tickets;
-    // consume UserContext api data from App
-    // const [tickets, setTickets] = useContext(UserContext);
 
     return (
         <div className='Home'>

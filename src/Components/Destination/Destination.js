@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import DestinationDetails from '../DestinationDetails/DestinationDetails';
 import HereMap from '../HereMap/HereMap';
 
+// import styleSheet
 import './Destination.css'
 
 // location coordinates context

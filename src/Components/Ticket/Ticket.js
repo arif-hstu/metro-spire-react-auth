@@ -5,10 +5,7 @@ import { DestinationContext } from '../../App';
 // import styleSheet
 import './Ticket.css'
 
-
-
 const Ticket = (props) => {
-
     // destructuring the props value from Home.js
     const { ticketId, ticketName, ticketPrice, ticketBackground } = props.ticket;
     const background = {
@@ -23,7 +20,6 @@ const Ticket = (props) => {
         const url = `destination/${ticketId}`;
         setDestinationPath(url);
         history.push(url);
-
     }
 
     return (

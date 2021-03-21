@@ -21,6 +21,7 @@ import googleIcon from '../../images/googleIcon.png'
 let userName;
 let userEmail;
 let userPassword;
+let isMatched;
 
 const Login = () => {
     // initialization of firebase app
@@ -39,23 +40,12 @@ const Login = () => {
     // Create an instance of the Google provider object
     const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-
-
     // google sign in handler
     const handleGoogleSignIn = () => {
         firebase.auth()
             .signInWithPopup(googleProvider)
             .then((result) => {
-                var credential = result.credential;
-
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                var token = credential.accessToken;
-                // The signed-in user info.
-                const user = result.user;
-                setLoggedInUser(user);
-                history.replace(from);
-                // get user data to set user state
-                const { displayName, photoURL, email, password } = result.loggedInUser;
+                const { displayName, photoURL, email, password } = result.user;
                 const signedInUser = {
                     isSignedIn: true,
                     name: displayName,
@@ -65,27 +55,18 @@ const Login = () => {
                 }
                 setLoggedInUser(signedInUser);
 
+                history.replace(from);
 
             }).catch((error) => {
                 // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log(errorMessage);
-                // The email of the user's account used.
-                var email = error.email;
-                // The firebase.auth.AuthCredential type that was used.
-                var credential = error.credential;
+                const errorMessage = error.message;
+                const newUserInfo = { ...loggedInUser };
+                newUserInfo.error = errorMessage;
+                setLoggedInUser(newUserInfo);
             });
     }
 
-
-
-    // let isEmailValid = false;
-    // let isPasswordValid = false;
-
-
     // handle onBlur input
-
     const handleBlur = (e) => {
         e.preventDefault();
         // clear error message
@@ -104,10 +85,8 @@ const Login = () => {
         }
         if (e.target.name === 'email') {
             isEmailValid = /\S+@\S+\.\S+/.test(e.target.value);
-            console.log('handle blur:', loggedInUser)
             if (isEmailValid) {
                 userEmail = e.target.value;
-                console.log('userEmail:', userEmail)
             }
         }
         if (e.target.name === 'password') {
@@ -116,41 +95,52 @@ const Login = () => {
             isPasswordValid = isPasswordLengthValid && passwordHasNumber;
             if (isPasswordValid) {
                 userPassword = e.target.value;
-                console.log('userPassword:', userPassword)
             }
         }
+    }
 
-        console.log('got from handleBlur:', userName, userEmail, userPassword)
+    // handle password match
+    const handleMatch = (e) => {
+        e.preventDefault();
+        // clear error message if any
+        const newUserInfo = { ...loggedInUser };
+        newUserInfo.error = '';
+        setLoggedInUser(newUserInfo);
+        if (userPassword === e.target.value) {
+            isMatched = true;
+        } else {
+            const newUserInfo = { ...loggedInUser };
+            newUserInfo.error = 'Your password didn\'t match!';
+            setLoggedInUser(newUserInfo);
+        }
     }
 
     // handle submit form
     const handleRegisterSubmit = (e) => {
-        console.log('handleRegistrationSubmit:',userName, userEmail, userPassword)
-
         let isSuccess;
         e.preventDefault();
         firebase.auth().createUserWithEmailAndPassword(userEmail, userPassword)
             .then((userCredential) => {
                 isSuccess = true;
-                if (isSuccess && userEmail && userPassword) {
+                if (isSuccess && userEmail && userPassword && isMatched) {
                     const newUserInfo = { ...loggedInUser };
                     newUserInfo.email = userEmail;
                     newUserInfo.password = userPassword;
                     newUserInfo.displayName = userName;
                     newUserInfo.successful = 'Registration Successfull';
                     setLoggedInUser(newUserInfo);
-                    console.log('Registration successful locally', userName, userEmail, userPassword)
+
                     userEmail = '';
                     userPassword = '';
                     userName = '';
+                    isMatched = false;
 
                     history.replace(from);
                 }
             })
             .catch((err) => {
                 // var errorCode = error.code;
-                var errorMessage = err.message;
-                console.log(errorMessage)
+                const errorMessage = err.message;
                 const newUserInfo = { ...loggedInUser };
                 newUserInfo.error = errorMessage;
                 setLoggedInUser(newUserInfo);
@@ -174,36 +164,30 @@ const Login = () => {
         let isSuccess;
         e.preventDefault();
 
-        // if (userEmail && userPassword) {
-        //     const newUserInfo = { ...loggedInUser };
-        //     newUserInfo.email = userEmail;
-        //     newUserInfo.password = userPassword;
-        //     setLoggedInUser(newUserInfo);
-        // }
-
         firebase.auth().signInWithEmailAndPassword(userEmail, userPassword)
             .then((userCredential) => {
                 isSuccess = true;
-                console.log('login succesful ');
                 if (isSuccess && userEmail && userPassword) {
                     const newUserInfo = { ...loggedInUser };
                     newUserInfo.email = userEmail;
                     newUserInfo.password = userPassword;
                     newUserInfo.successful = 'User Created Successfully';
                     setLoggedInUser(newUserInfo);
-                    console.log('log in successful locally');
+
                     userEmail = '';
                     userPassword = '';
                     userName = '';
+                    isMatched = false;
+
                     history.replace(from);
                 }
             })
             .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log(errorMessage);
+                const errorMessage = error.message;
+                const newUserInfo = { ...loggedInUser };
+                newUserInfo.error = errorMessage;
+                setLoggedInUser(newUserInfo);
             });
-
     }
 
     return (
@@ -231,9 +215,9 @@ const Login = () => {
                             <input type="text" name="email" placeholder='Username or Email' onBlur={handleBlur} id="" />
                             <br />
                             <input type="password" name="password" placeholder='Password' onBlur={handleBlur} id="" />
-                            {/* <br />
-                            <input type="password" name="password" placeholder='Confirm Password' id="" />
-                            <br /> */}
+                            <br />
+                            <input type="password" name="password" placeholder='Confirm Password' onBlur={handleMatch} id="" />
+                            <br />
                             <input className='inputButton' type="submit" value='Create an account'></input>
 
                             <div className='signupInfo'>
@@ -243,7 +227,7 @@ const Login = () => {
                         </form>
                 }
                 {
-                    loggedInUser.error && <p style={{ color: 'red' }}>{loggedInUser.error}</p>
+                    loggedInUser.error && loggedInUser.name && <p style={{ color: 'red', fontSize: '12px' }}>{loggedInUser.error}</p>
                 }
             </div>
 

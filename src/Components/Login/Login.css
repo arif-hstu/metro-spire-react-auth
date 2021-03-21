@@ -54,7 +54,6 @@
     width: 35%;
     margin-left: -60%;
     margin-top: 6%;
-
 }
 
 .socialLogin .button {
@@ -69,7 +68,6 @@
 .emailLogin form .signupInfo {
     font-size: 12px;
     display:block;
-
 }
 
 .emailLogin form .signupInfo span {
@@ -82,5 +80,4 @@
     .socialLogin {
         font-size: 2vmin;
     }
-    
 }

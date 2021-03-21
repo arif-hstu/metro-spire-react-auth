@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../../App';
 import { LocationDetailsContext } from '../DestinationDetails/DestinationDetails';
 
 // import fakeData
@@ -17,10 +16,7 @@ const Summary = (props) => {
     const [id] = props.id;
     const [ticket, setTicket] = useState({});
     useEffect(() => {
-        // const newTicket = JSON.parse(localStorage.getItem('ticketInfo'));
-        // setTicket(newTicket)
         const newTicket = fakeData.filter(data => data.ticketId === parseInt(id));
-        console.log('summary:    ',fakeData,ticket);
         setTicket(newTicket[0]);
     }, [])
 

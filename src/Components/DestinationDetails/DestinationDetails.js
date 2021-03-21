@@ -16,9 +16,10 @@ const DestinationDetails = (props) => {
         e.preventDefault();
     }
 
+    // get date
     const [startDate, setStartDate] = useState(new window.Date());
 
-
+    // useState to set locationDetails
     const [locationDetails, setLocationDetails] = useState([]);
     return (
         <LocationDetailsContext.Provider value={[locationDetails, setLocationDetails]}>

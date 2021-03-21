@@ -30,7 +30,7 @@ const Header = () => {
                         loggedInUser.email ?
                             <Link to='/profile'>
                                 <div className="name">
-                                    {loggedInUser.displayName || 'Anonymous'}
+                                    {loggedInUser.name || 'Anonymous'}
                                 </div>
                             </Link> :
                             <div className='signUpDiv' >

@@ -42,11 +42,6 @@ const GoogleMap = () => {
                             pointerdown: e => console.log("Polyline Pointer Down", e)
                         }}
                     />
-                    {/* <HMapMarker
-                        coords={markerCoords}
-                        icon={markerIcon}
-                        objectEvents={{ pointerdown: e => console.log("Marker Pointer Down", e) }}
-                    /> */}
                 </HMap>
             </HPlatform>;
         </div>

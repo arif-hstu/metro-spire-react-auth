@@ -15,10 +15,13 @@ const Profile = () => {
     // handle logout from the device
     const handleLogOut = () => {
         firebase.auth().signOut().then(() => {
-            console.log('successful')
+            console.log('')
         }).catch((error) => {
-            console.log(error)
+            const newUserInfo = { ...loggedInUser };
+            newUserInfo.error = error;
+            setLoggedInUser(newUserInfo);
         });
+
         const newUser = { ...loggedInUser };
         newUser.isSignedIn = false;
         newUser.email = '';
@@ -41,7 +44,6 @@ const Profile = () => {
             isNameValid = /^[a-zA-Z\s]+$/.test(e.target.value);
             if (isNameValid) {
                 userName = e.target.value;
-                console.log('your updated name: ', userName)
             }
         }
 
@@ -58,32 +60,31 @@ const Profile = () => {
             isSuccess = true;
             if (isSuccess && userName) {
                 const newUserInfo = { ...loggedInUser };
-                newUserInfo.displayName = userName;
+                newUserInfo.name = userName;
                 newUserInfo.successful = 'Update Successfull';
                 setLoggedInUser(newUserInfo);
-                console.log('Update successful locally', userName)
                 userName = '';
             }
         }).catch(function (error) {
-            console.log('error occured')
+            const newUserInfo = { ...loggedInUser };
+            newUserInfo.error = error;
+            setLoggedInUser(newUserInfo);
         });
     }
     return (
         <div className='Profile'>
             <div className="profile-info">
                 {
-                    loggedInUser.displayName ?
-                        <h2>Welcome, {loggedInUser.displayName}!</h2> :
+                    loggedInUser.name ?
+                        <h2>Hi, {loggedInUser.name}!</h2> :
                         <h2>Hi, Anonymous!</h2>
                 }
-
                 {
                     !loggedInUser.displayName &&
                     <form onSubmit={updateInfoHandler}>
                         <input onBlur={handleBlur} placeholder='Please input you name here' type="text" name="name" id="" />
                         <input className = 'button' type="submit" value="Update Name" />
                     </form>
-
                 }
                 <img src={loggedInUser.photoURL} alt="" srcset="" />
                 <h3>Your Email is: {loggedInUser.email}</h3>
