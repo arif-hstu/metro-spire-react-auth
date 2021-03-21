@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 // import styleSheet
 import './Ticket.css'
 const Ticket = (props) => {
     // destructuring the props value from Home.js
-    const { ticketName, ticketPrice, ticketBackground } = props.ticket;
+    const { ticketId, ticketName, ticketPrice, ticketBackground } = props.ticket;
     const background = {
         background: 'url(' + ticketBackground + ')',
         backgroundSize: '100%',
@@ -12,10 +12,10 @@ const Ticket = (props) => {
     }
 
 
-
-    const singleTicketHandler = (e) => {
-        console.log(props.ticket)
-        localStorage.setItem('ticketInfo', JSON.stringify(props.ticket))
+    const history = useHistory();
+    const singleTicketHandler = (ticketId) => {
+        const url = `destination/${ticketId}`;
+        history.push(url);
     }
 
     return (
@@ -25,7 +25,7 @@ const Ticket = (props) => {
                     <h4>{ticketName}</h4>
                 </div>
                 <div className="bottomPart">
-                <Link onClick={() => singleTicketHandler()} className='primaryButton' to='/destination'>BUY NOW</Link>
+                <button onClick={() => singleTicketHandler(ticketId)} className='primaryButton'>BUY NOW</button>
                     <h2>{ticketPrice}</h2>
                 </div>
             </div>

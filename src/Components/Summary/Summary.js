@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../App';
 import { LocationDetailsContext } from '../DestinationDetails/DestinationDetails';
 
+// import fakeData
+import fakeData from '../../fakeData'
 // importe ticket image
 import ticketImage from '../../images/ticketIcon.png'
 // import styleSheet
@@ -11,10 +13,14 @@ import TicketDetails from '../TicketDetails/TicketDetails';
 const Summary = (props) => {
 
     const [startDate, setStartDate] = props.dateState;
+    const [id] = props.id;
     const [ticket, setTicket] = useState({});
     useEffect(() => {
-        const newTicket = JSON.parse(localStorage.getItem('ticketInfo'));
-        setTicket(newTicket)
+        // const newTicket = JSON.parse(localStorage.getItem('ticketInfo'));
+        // setTicket(newTicket)
+        const newTicket = fakeData.filter(data => data.ticketId === parseInt(id));
+        console.log('summary:    ',fakeData,ticket);
+        setTicket(newTicket[0]);
     }, [])
 
     //consume from DestinationDetails

@@ -8,7 +8,8 @@ import './DestinationDetails.css'
 export const LocationDetailsContext = createContext();
 
 
-const DestinationDetails = () => {
+const DestinationDetails = (props) => {
+    const [ticketId] = props.ticketId;
     const [hasSelected, setHasSelected] = useState(false);
     const searchHandle = (e) => {
         setHasSelected(true)
@@ -33,7 +34,7 @@ const DestinationDetails = () => {
                             <Date className='date' dateState={[startDate, setStartDate]}/>
                             <input className='button' type="submit" value="Search" />
                         </form> : 
-                        <Summary dateState={[startDate, setStartDate]}/>
+                        <Summary id = {ticketId} dateState={[startDate, setStartDate]}/>
                 }
             </div>
         </LocationDetailsContext.Provider>

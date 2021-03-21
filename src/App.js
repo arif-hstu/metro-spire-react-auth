@@ -1,6 +1,9 @@
 // import styleSheets
 import './App.css';
 
+// import fakeData
+import fakeData from './fakeData';
+
 // import react router components
 import { Switch, Route } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom'
@@ -53,37 +56,13 @@ function App() {
   const [tickets, setTickets] = useState([]);
 
   // fetch mock data
-  const data = [{
-    ticketName: "ONE TIME TICKET",
-    ticketPrice: 100,
-    ticketBackground: "https://i.imgur.com/gFxVE2Y.png"
-  },
-  {
-    ticketName: "ONE DAY PASS",
-    ticketPrice: 500,
-    ticketBackground: "https://i.imgur.com/VANKF8z.png"
-  },
-  {
-    ticketName: "MONTHLY PASS",
-    ticketPrice: 1500,
-    ticketBackground: "https://i.imgur.com/d7xONME.png"
-  },
-  {
-    ticketName: "ANNUAL PASS",
-    ticketPrice: 9000,
-    ticketBackground: "https://i.imgur.com/bBquyB9.png"
-  }
-  ]
   useEffect(() => {
-    setTickets(data);
+    setTickets(fakeData);
   }, []);
 
 
 
   return (
-    // <LocationContext.Provider value={[places, setPlaces, placeName, setPlaceName]}>
-    // <SingleTicketContext.Provider value={[singleTicket, setSingleTicket]}>
-
     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
       <div style={bg}>
         <Router>
@@ -92,20 +71,20 @@ function App() {
             <Route exact path='/'>
               <Home tickets={[tickets, setTickets]} />
             </Route>
-            <PrivateRoute path='/destination'>
-              <Destination background={[bg, setBg]} />
+            <PrivateRoute path='/destination/:ticketId'>
+              <Destination />
             </PrivateRoute>
             <Route path='/login'>
-              <Login background={[bg, setBg]} />
+              <Login />
             </Route>
             <Route path='/blog'>
-              <Blog background={[bg, setBg]} />
+              <Blog />
             </Route>
             <Route path='/Contact'>
-              <Contact background={[bg, setBg]} />
+              <Contact />
             </Route>
             <PrivateRoute path='/profile'>
-              <Profile background={[bg, setBg]} />
+              <Profile />
             </PrivateRoute>
           </Switch>
         </Router>
