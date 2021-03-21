@@ -197,9 +197,9 @@ const Login = () => {
                     loggedInUser.isSignedIn ?
                         <form onSubmit={handleLoginSubmit}>
                             <h4>Login</h4>
-                            <input type="text" name="email" placeholder='Email' onBlur={handleBlur} id="" />
+                            <input type="text" name="email" placeholder='Email' onBlur={handleBlur} />
                             <br />
-                            <input type="password" name="password" placeholder='Password' onBlur={handleBlur} id="" />
+                            <input type="password" name="password" placeholder='Password' onBlur={handleBlur}  />
                             <br />
                             <input className='inputButton' type="submit" value='Login'></input>
 
@@ -210,13 +210,13 @@ const Login = () => {
                         </form> :
                         <form onSubmit={handleRegisterSubmit}>
                             <h4>Create an account </h4>
-                            <input type="text" name="name" placeholder='Name' onBlur={handleBlur} id="" />
+                            <input type="text" name="name" placeholder='Name' onBlur={handleBlur}  />
                             <br />
-                            <input type="text" name="email" placeholder='Username or Email' onBlur={handleBlur} id="" />
+                            <input type="text" name="email" placeholder='Username or Email' onBlur={handleBlur}  />
                             <br />
-                            <input type="password" name="password" placeholder='Password' onBlur={handleBlur} id="" />
+                            <input type="password" name="password" placeholder='Password' onBlur={handleBlur}  />
                             <br />
-                            <input type="password" name="password" placeholder='Confirm Password' onBlur={handleMatch} id="" />
+                            <input type="password" name="password" placeholder='Confirm Password' onBlur={handleMatch} />
                             <br />
                             <input className='inputButton' type="submit" value='Create an account'></input>
 
