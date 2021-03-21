@@ -3,16 +3,17 @@ import './Header.css'
 import React, { useContext } from 'react';
 
 // import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 // import logo
 import logo from "../../images/metroLogoDark.png";
-import { UserContext } from '../../App';
+import { DestinationContext, UserContext } from '../../App';
 
 
 const Header = () => {
     // consume UserContext data from APp
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const [destinationPath, setDestinationPath] = useContext(DestinationContext);
 
     return (
         <div className='Header'>
@@ -22,7 +23,7 @@ const Header = () => {
                 </div>
                 <div className="navigation">
                     <Link to='/'>Home</Link>
-                    <Link to='/destination'>Destination</Link>
+                    <Link to={destinationPath || '/destination'}>Destination</Link>
                     <Link to='/blog'>Blog</Link>
                     <Link to='/contact'>Contact</Link>
                     {

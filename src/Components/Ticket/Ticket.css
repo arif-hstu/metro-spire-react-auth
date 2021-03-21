@@ -20,6 +20,7 @@
     background:linear-gradient(to right, #fe8d30, #feb21c);
     border-radius: 30px;
     color: black;
+    border-style: none;
 }
 
 .Ticket .ticketContent .bottomPart {

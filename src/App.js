@@ -28,6 +28,13 @@ import Profile from './Components/Profile/Profile';
 // useContext hook to provide tickets api data
 export const UserContext = createContext();
 
+// useContext hook to provide destination path
+export const DestinationContext = createContext();
+
+
+
+
+
 function App() {
   // useState to hold the background property
   const [bg, setBg] = useState({
@@ -47,7 +54,8 @@ function App() {
       height: '100vh',
       width: '100vw',
       float: 'left'
-  })}, [])
+    })
+  }, [])
 
   // useState hook to set loggedInUser data
   const [loggedInUser, setLoggedInUser] = useState([]);
@@ -61,17 +69,26 @@ function App() {
   }, []);
 
 
+  // useSate to hold the destination path
+  const [destinationPath, setDestinationPath] = useState('');
 
   return (
     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
       <div style={bg}>
         <Router>
-          <Header />
+          <DestinationContext.Provider value={[destinationPath, setDestinationPath]}>
+            <Header />
+          </DestinationContext.Provider>
           <Switch>
             <Route exact path='/'>
-              <Home tickets={[tickets, setTickets]} />
+              <DestinationContext.Provider value={[destinationPath, setDestinationPath]}>
+                <Home tickets={[tickets, setTickets]} />
+              </DestinationContext.Provider>
             </Route>
             <PrivateRoute path='/destination/:ticketId'>
+              <Destination />
+            </PrivateRoute>
+            <PrivateRoute path='/destination'>
               <Destination />
             </PrivateRoute>
             <Route path='/login'>
