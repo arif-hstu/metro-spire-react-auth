@@ -6,6 +6,7 @@ import { LocationDetailsContext } from '../DestinationDetails/DestinationDetails
 import fakeData from '../../fakeData'
 // importe ticket image
 import ticketImage from '../../images/ticketIcon.png'
+import timeLineIcon from '../../images/timeLineIcon.png'
 // import styleSheet
 import './Summary.css'
 import TicketDetails from '../TicketDetails/TicketDetails';
@@ -29,10 +30,11 @@ const Summary = (props) => {
         <div className='Summary'>
             <div className='locationName'>
                 <div className="icon">
+                    <img src={timeLineIcon} alt='icon'></img>
                 </div>
                 <div className="name">
                     {
-                        locationDetails.map(location => <p><span>⚫</span> {location.label}</p>)
+                        locationDetails.map(location => <div><p>{location.label}</p></div>)
                     }
                 </div>
             </div>

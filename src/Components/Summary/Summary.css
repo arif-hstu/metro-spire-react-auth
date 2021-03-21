@@ -1,14 +1,32 @@
 
 .Summary .locationName .name {
-    background-color: #ff6e40;
-    padding: 10px;
+    margin-top: 3%;
     color: white;
-    border-radius: 7px;
+    font-size: larger;
 }
 
-.Summary .locationName .name span {
-    margin-right: 5px;
+.Summary .locationName .name > :first-child {
+    margin-top: -15%;
 }
+
+.Summary .locationName {
+    display: flex;
+    justify-content: left;
+    background-color: #ff6e40;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.Summary .locationName .icon {
+    width: 30px;
+    margin-top: 1%;
+}
+
+.Summary .locationName .icon img {
+    width: 100%;
+    height: 85%;
+}
+
 
 .Summary .ticketDetails {
     margin-top: 6%;
