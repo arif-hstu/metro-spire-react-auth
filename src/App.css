@@ -1,18 +1,4 @@
 
-/* .App {
-    background: url('./images/homeBg.png') no-repeat;
-    background-size: 100vw; 
-    float: left;
-    height: 100vw;
-    width: 100vw;
-} */
-
-/* .App {
-    height: 100vw;
-    width: 100vw;
-} */
-
-
 body {
     background: linear-gradient(to right, #cad4e0, #dadeea, #cad4e0);
 }
